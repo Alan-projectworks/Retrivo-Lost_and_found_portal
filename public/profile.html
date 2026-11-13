@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/dashboard.html" class="nav-link">Dashboard</a></li>
+            <li><a href="/profile.html" class="nav-link active">Profile</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container" style="max-width: 680px;">
+      
+      <!-- Profile Card -->
+      <div style="background-color: var(--color-white); border: 2px solid var(--color-forest); padding: 36px; border-radius: var(--radius-xs); box-shadow: var(--shadow-md); margin-bottom: 30px;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(20,45,38,0.1);">
+          <div>
+            <div class="meta-tag">CAMPUS IDENTITY</div>
+            <h1 style="color: var(--color-forest); font-size: 2rem; margin-top: 4px;" id="profile-name-header">Student Profile</h1>
+            <p style="color: var(--color-charcoal-muted); font-size: 0.9rem;" id="profile-email-header">student@lpu.in</p>
+          </div>
+          <div>
+            <span id="profile-role-badge" class="badge badge-active" style="font-size: 0.85rem; padding: 6px 14px;">STUDENT</span>
+          </div>
+        </div>
+
+        <!-- Editable Details Form -->
+        <form id="profile-details-form">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="prof-reg">Registration Number</label>
+              <input type="text" id="prof-reg" class="form-control" readonly style="background-color: var(--color-ivory);">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="prof-email">Email Address</label>
+              <input type="email" id="prof-email" class="form-control" readonly style="background-color: var(--color-ivory);">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prof-name">Full Name</label>
+            <input type="text" id="prof-name" class="form-control" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="prof-dept">School / Department</label>
+              <input type="text" id="prof-dept" class="form-control" placeholder="e.g. B.Tech Computer Science">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="prof-hostel">Hostel Block / Residence</label>
+              <input type="text" id="prof-hostel" class="form-control" placeholder="e.g. BH-4 Room 302">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prof-phone">Contact Phone / WhatsApp</label>
+            <input type="tel" id="prof-phone" class="form-control" placeholder="+91 98765 43210">
+          </div>
+
+          <button type="submit" id="save-profile-btn" class="btn btn-forest" style="width: 100%;">
+            Save Profile Updates
+          </button>
+        </form>
+      </div>
+
+      <!-- Change Password Card -->
+      <div style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); padding: 30px; border-radius: var(--radius-xs);">
+        <h2 style="font-size: 1.35rem; color: var(--color-forest); margin-bottom: 6px;">Security & Password</h2>
+        <p style="font-size: 0.85rem; color: var(--color-charcoal-muted); margin-bottom: 20px;">
+          Keep your campus recovery account secure with a strong password.
+        </p>
+
+        <form id="password-form">
+          <div class="form-group">
+            <label class="form-label" for="curr-pw">Current Password</label>
+            <input type="password" id="curr-pw" class="form-control" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="new-pw">New Password</label>
+              <input type="password" id="new-pw" class="form-control" minlength="6" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="conf-new-pw">Confirm New Password</label>
+              <input type="password" id="conf-new-pw" class="form-control" minlength="6" required>
+            </div>
+          </div>
+
+          <button type="submit" id="change-pw-btn" class="btn btn-outline btn-sm">
+            Update Password
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = await guardRoute();
+      if (!user) return;
+
+      document.getElementById('profile-name-header').textContent = user.full_name;
+      document.getElementById('profile-email-header').textContent = user.email;
+      document.getElementById('prof-reg').value = user.reg_number;
+      document.getElementById('prof-email').value = user.email;
+      document.getElementById('prof-name').value = user.full_name;
+      document.getElementById('prof-dept').value = user.department || '';
+      document.getElementById('prof-hostel').value = user.hostel_block || '';
+      document.getElementById('prof-phone').value = user.phone || '';
+
+      const badge = document.getElementById('profile-role-badge');
+      badge.textContent = user.role.toUpperCase();
+      badge.className = `badge user-role-${user.role}`;
+    });
+
+    document.getElementById('profile-details-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const full_name = document.getElementById('prof-name').value.trim();
+      const department = document.getElementById('prof-dept').value.trim();
+      const hostel_block = document.getElementById('prof-hostel').value.trim();
+      const phone = document.getElementById('prof-phone').value.trim();
+
+      const res = await API.put('/api/auth/profile', { full_name, department, hostel_block, phone });
+      if (res.success) {
+        showToast('Profile updated successfully!', 'success');
+        document.getElementById('profile-name-header').textContent = full_name;
+      } else {
+        showToast(res.error || 'Failed to update profile.', 'error');
+      }
+    });
+
+    document.getElementById('password-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const current_password = document.getElementById('curr-pw').value;
+      const new_password = document.getElementById('new-pw').value;
+      const confirm_new_password = document.getElementById('conf-new-pw').value;
+
+      if (new_password !== confirm_new_password) {
+        showToast('New passwords do not match.', 'error');
+        return;
+      }
+
+      const res = await API.put('/api/auth/change-password', {
+        current_password,
+        new_password,
+        confirm_new_password
+      });
+
+      if (res.success) {
+        showToast('Password updated successfully.', 'success');
+        document.getElementById('password-form').reset();
+      } else {
+        showToast(res.error || 'Failed to change password.', 'error');
+      }
+    });
+  </script>
+</body>
+</html>

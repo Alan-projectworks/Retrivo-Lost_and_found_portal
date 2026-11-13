@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Reports – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/dashboard.html" class="nav-link">Dashboard</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container">
+      
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        <div>
+          <div class="meta-tag">STUDENT REPORT MANAGEMENT</div>
+          <h1 style="color: var(--color-forest); font-size: 2.2rem; margin-top: 4px;">My Campus Reports</h1>
+          <p style="color: var(--color-charcoal-muted); font-size: 0.95rem;">
+            Track and manage all lost and found records filed from your university account.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <a href="/report-lost.html" class="btn btn-orange btn-sm">+ Report Lost</a>
+          <a href="/report-found.html" class="btn btn-forest btn-sm">+ Report Found</a>
+        </div>
+      </div>
+
+      <div style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); padding: 24px; margin-bottom: 30px;">
+        <!-- Filter Toggle -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button type="button" class="btn btn-forest btn-sm" id="btn-filter-all" onclick="filterReports('all')">All Reports</button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-filter-lost" onclick="filterReports('lost')">Lost Items Only</button>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-filter-found" onclick="filterReports('found')">Found Items Only</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Reference No</th>
+                <th>Type</th>
+                <th>Item Details</th>
+                <th>Campus Location</th>
+                <th>Date Logged</th>
+                <th>Current Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="my-reports-tbody">
+              <tr>
+                <td colspan="7" style="text-align: center; padding: 30px;">Loading your reports...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    let allReports = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = await guardRoute();
+      if (!user) return;
+
+      const res = await API.get('/api/items/my-reports');
+      if (res.success) {
+        allReports = res.items || [];
+        renderReportsTable(allReports);
+      }
+    });
+
+    const filterReports = (type) => {
+      document.querySelectorAll('#btn-filter-all, #btn-filter-lost, #btn-filter-found').forEach(b => {
+        b.className = 'btn btn-outline btn-sm';
+      });
+      document.getElementById(`btn-filter-${type}`).className = 'btn btn-forest btn-sm';
+
+      if (type === 'all') {
+        renderReportsTable(allReports);
+      } else {
+        renderReportsTable(allReports.filter(r => r.type === type));
+      }
+    };
+
+    const renderReportsTable = (reports) => {
+      const tbody = document.getElementById('my-reports-tbody');
+      if (!reports || reports.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 40px; color: var(--color-charcoal-muted);">
+              No reports found in this category.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = reports.map(r => `
+        <tr>
+          <td><span class="meta-tag" style="color: var(--color-forest);">${r.reference_no}</span></td>
+          <td><span class="badge ${r.type === 'lost' ? 'badge-lost' : 'badge-found'}">${r.type.toUpperCase()}</span></td>
+          <td>
+            <strong>${r.title}</strong>
+            <div style="font-size: 0.8rem; color: var(--color-charcoal-muted);">${r.category}</div>
+          </td>
+          <td>${r.location}</td>
+          <td>${formatDate(r.date_occurred)}</td>
+          <td>${getStatusBadge(r.status)}</td>
+          <td>
+            <div style="display: flex; gap: 8px;">
+              <a href="/item-detail.html?id=${r.id}" class="btn btn-outline btn-sm">Inspect</a>
+              ${r.status === 'active' ? `
+                <button onclick="cancelReport(${r.id})" class="btn btn-ghost btn-sm" style="color: #DC2626;">Cancel</button>
+              ` : ''}
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    const cancelReport = async (id) => {
+      if (!confirm('Are you sure you want to cancel this report? It will no longer be matched.')) return;
+      const res = await API.put(`/api/items/${id}/status`, { status: 'cancelled' });
+      if (res.success) {
+        showToast('Report cancelled.', 'info');
+        const updated = await API.get('/api/items/my-reports');
+        if (updated.success) {
+          allReports = updated.items || [];
+          renderReportsTable(allReports);
+        }
+      } else {
+        showToast(res.error || 'Failed to cancel report.', 'error');
+      }
+    };
+  </script>
+</body>
+</html>

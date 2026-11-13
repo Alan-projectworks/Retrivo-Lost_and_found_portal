@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Administration – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">ADMINISTRATION HQ</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/admin.html" class="nav-link active">Admin Portal</a></li>
+            <li><a href="/staff.html" class="nav-link">Staff Handover Desk</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Inventory</a></li>
+            <li><a href="/dashboard.html" class="nav-link">My Dashboard</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container">
+      
+      <!-- Admin Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        <div>
+          <div class="meta-tag" style="color: var(--color-orange);">EXECUTIVE PORTAL • ROLE-BASED ACCESS</div>
+          <h1 style="color: var(--color-forest); font-size: 2.2rem; margin-top: 4px;">System Administration</h1>
+          <p style="color: var(--color-charcoal-muted); font-size: 0.95rem;">
+            Central management of users, campus recovery records, collection desks, and audit logs.
+          </p>
+        </div>
+
+        <button onclick="openAddCpModal()" class="btn btn-orange btn-sm">+ Add Collection Point</button>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="stats-grid" style="background-color: var(--color-white); padding: 24px; border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); margin-bottom: 30px;">
+        <div class="stat-box">
+          <div class="stat-number" id="adm-users-total">--</div>
+          <div class="stat-label">Registered Users</div>
+          <div class="stat-sub"><span id="adm-students-count">0</span> Students • <span id="adm-staff-count">0</span> Staff</div>
+        </div>
+
+        <div class="stat-box highlight">
+          <div class="stat-number" id="adm-recovery-rate">--%</div>
+          <div class="stat-label">Campus Recovery Rate</div>
+          <div class="stat-sub"><span id="adm-returned-count">0</span> Items Handed Over</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-number" id="adm-items-total">--</div>
+          <div class="stat-label">Total Inventory Cases</div>
+          <div class="stat-sub"><span id="adm-lost-count">0</span> Lost • <span id="adm-found-count">0</span> Found</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-number" id="adm-claims-pending">--</div>
+          <div class="stat-label">Claims Pending Review</div>
+          <div class="stat-sub">Across campus security desks</div>
+        </div>
+      </div>
+
+      <!-- Admin Tabs -->
+      <div class="dashboard-tabs">
+        <button class="dashboard-tab active" onclick="switchAdminTab('users')">User Directory (<span id="cnt-users">0</span>)</button>
+        <button class="dashboard-tab" onclick="switchAdminTab('items')">Campus Inventory (<span id="cnt-items">0</span>)</button>
+        <button class="dashboard-tab" onclick="switchAdminTab('collection-points')">Collection Points (<span id="cnt-cp">0</span>)</button>
+        <button class="dashboard-tab" onclick="switchAdminTab('logs')">Audit Activity Logs</button>
+      </div>
+
+      <!-- Tab 1: User Directory -->
+      <div id="adm-tab-users" class="tab-pane">
+        <div style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); padding: 20px;">
+          <div style="display: flex; gap: 14px; margin-bottom: 18px; flex-wrap: wrap;">
+            <input type="text" id="user-search-input" class="form-control" placeholder="Search by name, email, or registration number..." style="max-width: 360px;" oninput="filterUsers()">
+            <select id="user-role-filter" class="form-select" style="max-width: 180px;" onchange="filterUsers()">
+              <option value="All">All Roles</option>
+              <option value="student">Students</option>
+              <option value="staff">Staff Personnel</option>
+              <option value="admin">Administrators</option>
+            </select>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Student / Staff Details</th>
+                  <th>Reg Number</th>
+                  <th>Email</th>
+                  <th>Department / Hostel</th>
+                  <th>Current Role</th>
+                  <th>Activity Stats</th>
+                  <th>Role Action</th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Campus Inventory -->
+      <div id="adm-tab-items" class="tab-pane" style="display: none;">
+        <div style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); padding: 20px;">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Ref No</th>
+                  <th>Type</th>
+                  <th>Item Title</th>
+                  <th>Category</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Reporter</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Collection Points -->
+      <div id="adm-tab-collection-points" class="tab-pane" style="display: none;">
+        <div style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); padding: 20px;">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Hub Name</th>
+                  <th>Campus Zone</th>
+                  <th>Building & Room</th>
+                  <th>Desk Incharge</th>
+                  <th>Operating Hours</th>
+                  <th>Contact</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="cp-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Audit Logs -->
+      <div id="adm-tab-logs" class="tab-pane" style="display: none;">
+        <div style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); padding: 20px;">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Action</th>
+                  <th>Authorized User</th>
+                  <th>Target Type</th>
+                  <th>Audit Log Details</th>
+                </tr>
+              </thead>
+              <tbody id="logs-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Add Collection Point Modal -->
+  <div class="modal-overlay" id="add-cp-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Campus Collection Point</h3>
+        <button type="button" class="modal-close-btn" onclick="closeAddCpModal()">&times;</button>
+      </div>
+      <form id="add-cp-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="cp-name">Desk / Counter Name *</label>
+            <input type="text" id="cp-name" class="form-control" placeholder="e.g. Block 38 Electronics Lab Desk" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cp-zone">Campus Zone *</label>
+            <input type="text" id="cp-zone" class="form-control" placeholder="e.g. Academic Block 34-38" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cp-building">Building / Room *</label>
+            <input type="text" id="cp-building" class="form-control" placeholder="e.g. Block 38 Ground Floor" required>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="cp-incharge">Desk Incharge</label>
+              <input type="text" id="cp-incharge" class="form-control" placeholder="e.g. Officer Gurdit Singh">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cp-phone">Contact Phone</label>
+              <input type="text" id="cp-phone" class="form-control" placeholder="+91 1824-517009">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cp-hours">Operating Hours</label>
+            <input type="text" id="cp-hours" class="form-control" placeholder="e.g. 09:00 AM - 06:00 PM">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeAddCpModal()">Cancel</button>
+          <button type="submit" class="btn btn-orange">Save Collection Point</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    let rawUsers = [];
+
+    const switchAdminTab = (tab) => {
+      document.querySelectorAll('.dashboard-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+      event.target.classList.add('active');
+      document.getElementById(`adm-tab-${tab}`).style.display = 'block';
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Guard route for admin only
+      const user = await guardRoute(['admin']);
+      if (!user) return;
+
+      loadOverview();
+      loadUsers();
+      loadInventory();
+      loadCollectionPoints();
+      loadLogs();
+    });
+
+    const loadOverview = async () => {
+      const res = await API.get('/api/admin/overview');
+      if (res.success) {
+        document.getElementById('adm-users-total').textContent = res.users.total;
+        document.getElementById('adm-students-count').textContent = res.users.students;
+        document.getElementById('adm-staff-count').textContent = res.users.staff;
+        document.getElementById('adm-recovery-rate').textContent = `${res.items.recoveryRate}%`;
+        document.getElementById('adm-returned-count').textContent = res.items.returned;
+        document.getElementById('adm-items-total').textContent = res.items.total;
+        document.getElementById('adm-lost-count').textContent = res.items.lost;
+        document.getElementById('adm-found-count').textContent = res.items.found;
+        document.getElementById('adm-claims-pending').textContent = res.claims.pending;
+      }
+    };
+
+    const loadUsers = async () => {
+      const res = await API.get('/api/admin/users');
+      if (res.success) {
+        rawUsers = res.users || [];
+        document.getElementById('cnt-users').textContent = rawUsers.length;
+        renderUsers(rawUsers);
+      }
+    };
+
+    const filterUsers = () => {
+      const q = document.getElementById('user-search-input').value.toLowerCase();
+      const role = document.getElementById('user-role-filter').value;
+
+      const filtered = rawUsers.filter(u => {
+        const matchesQ = u.full_name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q) || u.reg_number.toLowerCase().includes(q);
+        const matchesRole = role === 'All' || u.role === role;
+        return matchesQ && matchesRole;
+      });
+      renderUsers(filtered);
+    };
+
+    const renderUsers = (users) => {
+      const tbody = document.getElementById('users-tbody');
+      tbody.innerHTML = users.map(u => `
+        <tr>
+          <td>
+            <strong>${u.full_name}</strong>
+            <div style="font-size: 0.75rem; color: var(--color-charcoal-muted);">${u.phone || 'No phone logged'}</div>
+          </td>
+          <td><span class="meta-tag" style="color: var(--color-forest);">${u.reg_number}</span></td>
+          <td>${u.email}</td>
+          <td>${u.department || 'General'} • ${u.hostel_block || 'N/A'}</td>
+          <td>
+            <span class="user-role-badge user-role-${u.role}">${u.role}</span>
+          </td>
+          <td style="font-size: 0.8rem;">
+            ${u.report_count} Reports • ${u.claim_count} Claims
+          </td>
+          <td>
+            <select class="form-select" style="font-size: 0.8rem; padding: 4px 8px; width: 120px;" onchange="changeUserRole(${u.id}, this.value)">
+              <option value="student" ${u.role === 'student' ? 'selected' : ''}>Student</option>
+              <option value="staff" ${u.role === 'staff' ? 'selected' : ''}>Staff Desk</option>
+              <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+            </select>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    const changeUserRole = async (userId, newRole) => {
+      if (!confirm(`Are you sure you want to change this user's role to ${newRole.toUpperCase()}?`)) {
+        loadUsers();
+        return;
+      }
+      const res = await API.put(`/api/admin/users/${userId}/role`, { role: newRole });
+      if (res.success) {
+        showToast(res.message, 'success');
+        loadUsers();
+        loadOverview();
+      } else {
+        showToast(res.error || 'Failed to update role.', 'error');
+        loadUsers();
+      }
+    };
+
+    const loadInventory = async () => {
+      const res = await API.get('/api/items?limit=50');
+      if (res.success) {
+        document.getElementById('cnt-items').textContent = res.total;
+        const tbody = document.getElementById('inventory-tbody');
+        tbody.innerHTML = res.items.map(i => `
+          <tr>
+            <td><span class="meta-tag" style="color: var(--color-forest);">${i.reference_no}</span></td>
+            <td><span class="badge ${i.type === 'lost' ? 'badge-lost' : 'badge-found'}">${i.type.toUpperCase()}</span></td>
+            <td><strong>${i.title}</strong></td>
+            <td>${i.category}</td>
+            <td>${i.location}</td>
+            <td>${getStatusBadge(i.status)}</td>
+            <td>${i.reporter_name || 'Protected'}</td>
+            <td>
+              <a href="/item-detail.html?id=${i.id}" class="btn btn-outline btn-sm">Inspect</a>
+            </td>
+          </tr>
+        `).join('');
+      }
+    };
+
+    const loadCollectionPoints = async () => {
+      const res = await API.get('/api/locations');
+      if (res.success && res.collectionPoints) {
+        document.getElementById('cnt-cp').textContent = res.collectionPoints.length;
+        const tbody = document.getElementById('cp-tbody');
+        tbody.innerHTML = res.collectionPoints.map(cp => `
+          <tr>
+            <td><strong>${cp.name}</strong></td>
+            <td><span class="meta-tag" style="color: var(--color-forest);">${cp.zone}</span></td>
+            <td>${cp.building}</td>
+            <td>${cp.desk_incharge || 'Campus Guard'}</td>
+            <td>${cp.operating_hours || '24 Hours'}</td>
+            <td>${cp.contact_number || '+91 1824-517000'}</td>
+            <td><span class="badge badge-active">ACTIVE</span></td>
+          </tr>
+        `).join('');
+      }
+    };
+
+    const loadLogs = async () => {
+      const res = await API.get('/api/admin/logs?limit=40');
+      if (res.success && res.logs) {
+        const tbody = document.getElementById('logs-tbody');
+        tbody.innerHTML = res.logs.map(l => `
+          <tr>
+            <td style="font-size: 0.8rem; color: var(--color-charcoal-muted);">${formatRelativeTime(l.created_at)}</td>
+            <td><span class="badge badge-found">${l.action}</span></td>
+            <td>
+              <strong>${l.user_name || 'System'}</strong>
+              <div style="font-size: 0.75rem; color: var(--color-sage-dark);">${l.user_role || ''} ${l.user_reg ? `(${l.user_reg})` : ''}</div>
+            </td>
+            <td><span class="meta-tag" style="color: var(--color-forest);">${l.target_type}</span></td>
+            <td style="font-size: 0.85rem;">${l.details}</td>
+          </tr>
+        `).join('');
+      }
+    };
+
+    // Add Collection Point Modal
+    const openAddCpModal = () => document.getElementById('add-cp-modal').classList.add('active');
+    const closeAddCpModal = () => document.getElementById('add-cp-modal').classList.remove('active');
+
+    document.getElementById('add-cp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('cp-name').value.trim();
+      const zone = document.getElementById('cp-zone').value.trim();
+      const building = document.getElementById('cp-building').value.trim();
+      const desk_incharge = document.getElementById('cp-incharge').value.trim();
+      const contact_number = document.getElementById('cp-phone').value.trim();
+      const operating_hours = document.getElementById('cp-hours').value.trim();
+
+      const res = await API.post('/api/admin/collection-points', {
+        name, zone, building, desk_incharge, contact_number, operating_hours
+      });
+
+      if (res.success) {
+        showToast('Collection point added successfully.', 'success');
+        closeAddCpModal();
+        loadCollectionPoints();
+      } else {
+        showToast(res.error || 'Failed to add collection point.', 'error');
+      }
+    });
+  </script>
+</body>
+</html>

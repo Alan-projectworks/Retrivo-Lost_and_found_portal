@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <rect width="600" height="400" fill="#F5F2E9"/>
+  <!-- Shadow -->
+  <ellipse cx="280" cy="310" rx="90" ry="16" fill="#252925" opacity="0.1"/>
+  <!-- Apple Power Adapter Brick -->
+  <rect x="190" y="140" width="160" height="160" rx="28" fill="#FFFFFF" stroke="#DCD7C9" stroke-width="2" filter="drop-shadow(0 10px 20px rgba(0,0,0,0.06))"/>
+  <!-- Logo indentation -->
+  <circle cx="270" cy="220" r="24" fill="#F5F2E9" opacity="0.6"/>
+  <path d="M 270 210 C 263 210, 258 215, 258 223 C 258 232, 264 237, 270 237 C 276 237, 282 232, 282 223 C 282 215, 277 210, 270 210 Z" fill="#252925" opacity="0.15"/>
+  <text x="270" y="278" font-family="'Inter', sans-serif" font-weight="600" font-size="9" fill="#A8B7A0" text-anchor="middle" letter-spacing="1">67W USB-C</text>
+  <!-- USB-C Port -->
+  <rect x="250" y="132" width="40" height="14" rx="7" fill="#252925"/>
+  <rect x="255" y="136" width="30" height="6" rx="3" fill="#A8B7A0"/>
+  <!-- Folded Cable -->
+  <path d="M 270 132 C 270 90, 360 80, 400 130 C 440 180, 380 250, 420 290 C 450 320, 500 290, 490 240" fill="none" stroke="#E6E2D8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 270 132 C 270 90, 360 80, 400 130 C 440 180, 380 250, 420 290 C 450 320, 500 290, 490 240" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+  <!-- USB-C Plug End -->
+  <rect x="480" y="228" width="16" height="24" rx="4" fill="#FFFFFF" stroke="#252925" stroke-width="1.5"/>
+  <rect x="483" y="218" width="10" height="10" rx="2" fill="#A8B7A0"/>
+</svg>

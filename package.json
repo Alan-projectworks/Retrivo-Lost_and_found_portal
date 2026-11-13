@@ -1,0 +1,28 @@
+{
+  "name": "retrivo-lpu-recovery",
+  "version": "1.0.0",
+  "description": "RETRIVO – LPU Campus Lost & Found Recovery Network. A Design Thinking project under P04 for Lovely Professional University.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node db/seed.js",
+    "test": "node tests/api.test.js"
+  },
+  "keywords": [
+    "lpu",
+    "lost-and-found",
+    "design-thinking",
+    "campus-recovery",
+    "retrivo"
+  ],
+  "author": "LPU Design Thinking Group P04",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "express": "^5.2.1",
+    "express-session": "^1.18.2",
+    "multer": "^2.1.1",
+    "qrcode": "^1.5.4",
+    "sqlite3": "^6.0.1"
+  }
+}

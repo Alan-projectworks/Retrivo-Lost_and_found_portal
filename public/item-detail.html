@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belonging Recovery Record – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link active">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 30px 0 80px 0;">
+    <div class="container">
+      
+      <!-- Back Link -->
+      <div style="margin-bottom: 20px;">
+        <a href="/browse.html" style="font-family: var(--font-heading); font-weight: 700; font-size: 0.85rem; color: var(--color-forest); display: inline-flex; align-items: center; gap: 6px;">
+          ← Back to Campus Directory
+        </a>
+      </div>
+
+      <!-- Item Detail Layout -->
+      <div class="detail-layout" id="item-detail-container">
+        <!-- Left: Media & Custody Info -->
+        <div>
+          <div class="detail-gallery">
+            <div class="detail-main-img">
+              <img id="detail-img" src="/uploads/default-item.svg" alt="Item Image">
+            </div>
+
+            <div style="border-top: 1px solid rgba(20,45,38,0.1); padding-top: 18px; margin-top: 10px;">
+              <div class="meta-tag" style="margin-bottom: 6px;">CURRENT CUSTODY / COLLECTION POINT</div>
+              <div id="detail-custody-card" style="font-size: 0.9rem; color: var(--color-charcoal); line-height: 1.5;">
+                Loading custody location...
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Information & Claim Actions -->
+        <div>
+          <div class="detail-info-pane">
+            <div class="detail-ref-strip">
+              <div>
+                <span id="detail-type-badge" class="badge badge-found">FOUND</span>
+                <span id="detail-status-badge" class="badge badge-active">ACTIVE</span>
+              </div>
+              <div class="meta-tag" id="detail-ref-no" style="font-size: 0.85rem; color: var(--color-forest);">
+                REF: LOADING...
+              </div>
+            </div>
+
+            <h1 class="detail-title" id="detail-title">Loading Item Title...</h1>
+
+            <p id="detail-desc" style="font-size: 1rem; color: var(--color-charcoal-muted); line-height: 1.6; margin-bottom: 20px;">
+              Loading description...
+            </p>
+
+            <!-- Status Stepper Component -->
+            <div style="margin: 28px 0; padding: 18px; background-color: var(--color-ivory); border-radius: var(--radius-xs); border: 1px solid rgba(20,45,38,0.08);">
+              <div class="meta-tag" style="margin-bottom: 12px;">RECOVERY LIFECYCLE PROGRESSION</div>
+              <div class="status-stepper" id="item-stepper">
+                <div class="step-item completed" id="step-reported">
+                  <div class="step-circle">01</div>
+                  <div class="step-label">Reported</div>
+                </div>
+                <div class="step-item" id="step-matched">
+                  <div class="step-circle">02</div>
+                  <div class="step-label">Matched</div>
+                </div>
+                <div class="step-item" id="step-claimed">
+                  <div class="step-circle">03</div>
+                  <div class="step-label">Claim Filed</div>
+                </div>
+                <div class="step-item" id="step-verified">
+                  <div class="step-circle">04</div>
+                  <div class="step-label">Verified</div>
+                </div>
+                <div class="step-item" id="step-returned">
+                  <div class="step-circle">05</div>
+                  <div class="step-label">Returned</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Properties Grid -->
+            <div class="detail-props-grid">
+              <div class="prop-item">
+                <span class="prop-label">Category</span>
+                <span class="prop-value" id="detail-category">--</span>
+              </div>
+              <div class="prop-item">
+                <span class="prop-label">Date Occurred</span>
+                <span class="prop-value" id="detail-date">--</span>
+              </div>
+              <div class="prop-item">
+                <span class="prop-label">Campus Zone</span>
+                <span class="prop-value" id="detail-location">--</span>
+              </div>
+              <div class="prop-item">
+                <span class="prop-label">Specific Location</span>
+                <span class="prop-value" id="detail-spot">--</span>
+              </div>
+            </div>
+
+            <!-- Sensitive Privacy Banner if protected -->
+            <div id="detail-sensitive-banner" style="display: none;" class="alert alert-warning">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <div>
+                <strong>Privacy Shield Active:</strong> Personal details and internal card identifiers are masked to prevent fraudulent possession claims.
+              </div>
+            </div>
+
+            <!-- Action Area -->
+            <div id="detail-action-area" style="margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(20,45,38,0.1);">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Smart Matching Candidates Section -->
+      <section id="smart-matches-section" style="margin-top: 40px; display: none;">
+        <div style="background-color: var(--color-white); border: 1px solid var(--color-forest); padding: 30px; border-radius: var(--radius-xs);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <div class="meta-tag">SMART MATCHING ALGORITHM</div>
+              <h2 style="font-size: 1.5rem; color: var(--color-forest); margin-top: 4px;">Potential Campus Matches</h2>
+              <p style="font-size: 0.9rem; color: var(--color-charcoal-muted);">Cross-referenced based on category, campus zone proximity, and keyword similarity.</p>
+            </div>
+            <span class="badge badge-found" id="match-candidates-count">0 Candidates</span>
+          </div>
+
+          <div class="items-grid" id="smart-matches-grid"></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Ownership Claim Modal -->
+  <div class="modal-overlay" id="claim-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Submit Verified Ownership Claim</h3>
+        <button type="button" class="modal-close-btn" onclick="closeClaimModal()">&times;</button>
+      </div>
+
+      <form id="claim-form" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="alert alert-info" style="font-size: 0.85rem; margin-bottom: 20px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <div>
+              <strong>Human Verification Protocol:</strong> Claims are physically verified by Campus Safety & Security before release. Never submit false claims.
+            </div>
+          </div>
+
+          <!-- Auto-filled claimant card -->
+          <div style="background-color: var(--color-ivory); border: 1px solid rgba(20,45,38,0.12); padding: 14px; border-radius: var(--radius-xs); margin-bottom: 18px;">
+            <div class="meta-tag" style="margin-bottom: 4px;">CLAIMANT CREDENTIALS</div>
+            <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-forest);" id="claimant-name-display">Student Name</div>
+            <div style="font-size: 0.8rem; color: var(--color-charcoal-muted);" id="claimant-reg-display">REG: 12104598</div>
+          </div>
+
+          <input type="hidden" id="claim-item-id" name="item_id">
+
+          <div class="form-group">
+            <label class="form-label" for="claim-proof">Why do you believe this item is yours? *</label>
+            <textarea id="claim-proof" name="proof_description" rows="3" class="form-control" placeholder="Explain where and approximately when you misplaced it, its brand, and context..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="claim-secrets">
+              🔒 Secret Identifying Details (NOT shown in public description) *
+            </label>
+            <textarea id="claim-secrets" name="secret_answers" rows="3" class="form-control" placeholder="Provide details only the legitimate owner would know: e.g. wallpaper picture, scratch marks, exact contents inside, engravings, serial number prefix..." required></textarea>
+            <div class="form-hint">Staff will compare your answer against the finder's confidential record.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="claim-file">Supporting Proof / Past Photo / Purchase Bill (Optional)</label>
+            <input type="file" id="claim-file" name="proof_file" class="form-control" accept="image/jpeg,image/png,image/webp,application/pdf">
+            <div class="form-hint">Attach past photograph with the item, warranty card, or purchase invoice if available.</div>
+          </div>
+
+          <div id="claim-error" style="display: none;" class="alert alert-error"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeClaimModal()">Cancel</button>
+          <button type="submit" id="claim-submit-btn" class="btn btn-orange">Submit Claim for Review →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    let currentItem = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const itemId = urlParams.get('id');
+
+      if (!itemId) {
+        window.location.href = '/browse.html';
+        return;
+      }
+
+      await loadItemDetail(itemId);
+      await loadSmartMatches(itemId);
+    });
+
+    const loadItemDetail = async (id) => {
+      const res = await API.get(`/api/items/${id}`);
+      if (!res.success || !res.item) {
+        showToast('Item record not found.', 'error');
+        setTimeout(() => window.location.href = '/browse.html', 1500);
+        return;
+      }
+
+      currentItem = res.item;
+      const item = currentItem;
+
+      // Populate DOM
+      document.title = `${item.title} – RETRIVO.`;
+      document.getElementById('detail-title').textContent = item.title;
+      document.getElementById('detail-desc').textContent = item.description;
+      document.getElementById('detail-ref-no').textContent = `REF: ${item.reference_no}`;
+      document.getElementById('detail-category').textContent = item.category;
+      document.getElementById('detail-date').textContent = formatDate(item.date_occurred);
+      document.getElementById('detail-location').textContent = item.location;
+      document.getElementById('detail-spot').textContent = item.specific_spot || 'General Campus Area';
+      document.getElementById('detail-img').src = item.photo_url || '/uploads/default-item.svg';
+
+      // Type Badge
+      const typeBadge = document.getElementById('detail-type-badge');
+      typeBadge.textContent = item.type.toUpperCase();
+      typeBadge.className = `badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}`;
+
+      // Status Badge
+      const statusBadge = document.getElementById('detail-status-badge');
+      statusBadge.innerHTML = getStatusBadge(item.status);
+
+      // Sensitive shield
+      if (item.is_sensitive) {
+        document.getElementById('detail-sensitive-banner').style.display = 'flex';
+      }
+
+      // Custody information
+      const custodyCard = document.getElementById('detail-custody-card');
+      if (item.collection_point_name) {
+        custodyCard.innerHTML = `
+          <strong>${item.collection_point_name}</strong><br>
+          Building: ${item.collection_point_building || 'Campus Safety'}<br>
+          ${item.collection_desk_incharge ? `Desk Incharge: ${item.collection_desk_incharge}<br>` : ''}
+          ${item.collection_operating_hours ? `Hours: ${item.collection_operating_hours}<br>` : ''}
+          ${item.collection_desk_contact ? `Phone: ${item.collection_desk_contact}` : ''}
+        `;
+      } else {
+        custodyCard.innerHTML = `
+          <em>Under reporter custody / direct campus inquiry</em><br>
+          <span style="font-size: 0.8rem; color: var(--color-charcoal-muted);">Handover assistance available via Campus Security HQ.</span>
+        `;
+      }
+
+      // Update Stepper
+      updateStepper(item.status);
+
+      // Render Action Buttons
+      renderActions(item);
+    };
+
+    const updateStepper = (status) => {
+      const steps = ['reported', 'matched', 'claimed', 'verified', 'returned'];
+      let activeIndex = 0;
+
+      if (status === 'matched') activeIndex = 1;
+      if (status === 'under_review') activeIndex = 2;
+      if (status === 'ready_for_collection') activeIndex = 3;
+      if (status === 'returned') activeIndex = 4;
+
+      steps.forEach((s, idx) => {
+        const el = document.getElementById(`step-${s}`);
+        if (!el) return;
+        el.classList.remove('completed', 'active');
+        if (idx < activeIndex) {
+          el.classList.add('completed');
+        } else if (idx === activeIndex) {
+          el.classList.add('active');
+        }
+      });
+    };
+
+    const renderActions = (item) => {
+      const area = document.getElementById('detail-action-area');
+      const user = getCurrentUser();
+
+      if (item.type === 'found') {
+        if (item.status === 'returned') {
+          area.innerHTML = `
+            <div class="alert alert-success">
+              ✓ This item has been verified and safely returned to its legitimate owner. Case closed.
+            </div>
+          `;
+        } else {
+          area.innerHTML = `
+            <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+              <button onclick="openClaimModal()" class="btn btn-orange btn-lg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                CLAIM THIS ITEM
+              </button>
+              <div style="font-size: 0.85rem; color: var(--color-charcoal-muted); max-width: 320px;">
+                Belongs to you? Submit your proof. Staff verifies ownership before scheduling physical collection.
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        // Lost item
+        area.innerHTML = `
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+            <a href="/report-found.html?match_ref=${item.reference_no}" class="btn btn-forest btn-lg">
+              I FOUND THIS ITEM →
+            </a>
+            <div style="font-size: 0.85rem; color: var(--color-charcoal-muted); max-width: 320px;">
+              Did you find this missing belonging on campus? File a quick report to notify the owner.
+            </div>
+          </div>
+        `;
+      }
+    };
+
+    const loadSmartMatches = async (id) => {
+      const res = await API.get(`/api/items/${id}/matches`);
+      if (res.success && res.matches && res.matches.length > 0) {
+        const sec = document.getElementById('smart-matches-section');
+        const grid = document.getElementById('smart-matches-grid');
+        document.getElementById('match-candidates-count').textContent = `${res.matches.length} Candidates`;
+        sec.style.display = 'block';
+
+        grid.innerHTML = res.matches.map(m => `
+          <div class="item-card">
+            <div class="card-media-wrapper">
+              <img src="${m.item.photo_url || '/uploads/default-item.svg'}" alt="${m.item.title}">
+              <div class="card-badges">
+                <span class="badge ${m.item.type === 'lost' ? 'badge-lost' : 'badge-found'}">${m.item.type.toUpperCase()}</span>
+                <span class="badge badge-active">${m.matchScore}% MATCH</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="card-meta-line">
+                <span class="card-ref">${m.item.reference_no}</span>
+                <span class="card-date">${formatDate(m.item.date_occurred)}</span>
+              </div>
+              <h3 class="card-title">
+                <a href="/item-detail.html?id=${m.item.id}">${m.item.title}</a>
+              </h3>
+              <p class="card-desc">${m.item.description}</p>
+              <div class="card-footer">
+                <div class="card-location">${m.item.location}</div>
+                <a href="/item-detail.html?id=${m.item.id}" class="card-action-link">Inspect Match →</a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+    };
+
+    // Claim Modal
+    const openClaimModal = async () => {
+      const user = await guardRoute();
+      if (!user) return;
+
+      document.getElementById('claim-item-id').value = currentItem.id;
+      document.getElementById('claimant-name-display').textContent = user.full_name;
+      document.getElementById('claimant-reg-display').textContent = `REGISTRATION NO: ${user.reg_number} • ${user.email}`;
+      document.getElementById('claim-modal').classList.add('active');
+    };
+
+    const closeClaimModal = () => {
+      document.getElementById('claim-modal').classList.remove('active');
+    };
+
+    document.getElementById('claim-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errBox = document.getElementById('claim-error');
+      errBox.style.display = 'none';
+
+      const btn = document.getElementById('claim-submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Submitting Claim...';
+
+      const formData = new FormData(e.target);
+      const res = await API.post('/api/claims', formData, true);
+
+      if (res.success) {
+        showToast('Claim submitted! Campus Security has received your verification request.', 'success');
+        closeClaimModal();
+        setTimeout(() => {
+          window.location.href = '/my-claims.html';
+        }, 1000);
+      } else {
+        errBox.textContent = res.error || 'Failed to submit claim.';
+        errBox.style.display = 'flex';
+        btn.disabled = false;
+        btn.textContent = 'Submit Claim for Review →';
+      }
+    });
+  </script>
+</body>
+</html>

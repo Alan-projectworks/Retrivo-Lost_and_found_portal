@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <rect width="600" height="400" fill="#F5F2E9"/>
+  <!-- Bottle shadow -->
+  <ellipse cx="300" cy="355" rx="65" ry="12" fill="#252925" opacity="0.12"/>
+  <!-- Bottle body -->
+  <rect x="250" y="140" width="100" height="210" rx="16" fill="#1C3852" stroke="#142D26" stroke-width="2"/>
+  <!-- Metallic highlight -->
+  <path d="M 264 145 L 272 145 L 272 345 L 264 345 Z" fill="#FFFFFF" opacity="0.15"/>
+  <!-- Bottle neck & shoulder -->
+  <path d="M 250 150 C 250 115, 275 105, 275 90 L 325 90 C 325 105, 350 115, 350 150 Z" fill="#1C3852" stroke="#142D26" stroke-width="2"/>
+  <!-- Bottle Cap / Ring -->
+  <rect x="270" y="60" width="60" height="30" rx="6" fill="#252925" stroke="#142D26" stroke-width="2"/>
+  <rect x="278" y="44" width="44" height="18" rx="5" fill="#A8B7A0" stroke="#142D26" stroke-width="1.5"/>
+  <rect x="288" y="28" width="24" height="18" rx="9" fill="none" stroke="#252925" stroke-width="3"/>
+  <!-- Brand text -->
+  <text x="300" y="240" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="14" fill="#FFFFFF" text-anchor="middle" letter-spacing="3" opacity="0.85">MILTON</text>
+  <text x="300" y="258" font-family="'Inter', sans-serif" font-weight="500" font-size="9" fill="#A8B7A0" text-anchor="middle" letter-spacing="1">THERMOSTEEL 1000ml</text>
+  <!-- Yellow NASA sticker on lid as secret identifier -->
+  <circle cx="300" cy="74" r="8" fill="#F07845"/>
+  <text x="300" y="77" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="6" fill="#FFFFFF" text-anchor="middle">★</text>
+</svg>

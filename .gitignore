@@ -1,0 +1,8 @@
+node_modules/
+.env
+.env.*
+!.env.example
+db/retrivo.db
+public/uploads/item-*
+npm-debug.log*
+.DS_Store

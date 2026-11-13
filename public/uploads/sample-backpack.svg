@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <rect width="600" height="400" fill="#F5F2E9"/>
+  <!-- Shadow -->
+  <ellipse cx="300" cy="355" rx="100" ry="20" fill="#252925" opacity="0.15"/>
+  <!-- Top Handle -->
+  <path d="M 260 90 C 260 65, 340 65, 340 90" fill="none" stroke="#252925" stroke-width="8" stroke-linecap="round"/>
+  <!-- Main Body -->
+  <path d="M 210 160 C 210 95, 390 95, 390 160 L 400 320 C 400 345, 200 345, 200 320 Z" fill="#252925" stroke="#142D26" stroke-width="2.5"/>
+  <!-- Secondary Front Pocket -->
+  <path d="M 230 190 C 230 160, 370 160, 370 190 L 375 320 C 375 335, 225 335, 225 320 Z" fill="#384038" stroke="#142D26" stroke-width="2"/>
+  <!-- Lower Utility Pocket -->
+  <rect x="245" y="250" width="110" height="65" rx="8" fill="#142D26" stroke="#A8B7A0" stroke-width="1.5"/>
+  <!-- Zippers -->
+  <path d="M 225 155 C 235 115, 365 115, 375 155" fill="none" stroke="#A8B7A0" stroke-width="2" stroke-dasharray="4,2"/>
+  <path d="M 245 190 C 255 170, 345 170, 355 190" fill="none" stroke="#A8B7A0" stroke-width="2" stroke-dasharray="4,2"/>
+  <!-- Wildcraft Logo Badge -->
+  <rect x="282" y="272" width="36" height="20" rx="3" fill="#F07845"/>
+  <text x="300" y="285" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="8" fill="#FFFFFF" text-anchor="middle">WILD</text>
+  <!-- Side mesh pockets -->
+  <path d="M 200 230 C 190 250, 190 290, 204 310" fill="none" stroke="#A8B7A0" stroke-width="3"/>
+  <path d="M 400 230 C 410 250, 410 290, 396 310" fill="none" stroke="#A8B7A0" stroke-width="3"/>
+</svg>

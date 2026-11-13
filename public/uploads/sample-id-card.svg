@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <rect width="600" height="400" fill="#F5F2E9"/>
+  <!-- Lanyard strap -->
+  <path d="M 270 0 C 270 70, 280 100, 290 120 L 310 120 C 320 100, 330 70, 330 0 Z" fill="#142D26"/>
+  <rect x="288" y="115" width="24" height="18" rx="3" fill="#A8B7A0"/>
+  <path d="M 294 133 L 306 133 L 303 145 L 297 145 Z" fill="#252925"/>
+  <!-- ID Card Holder -->
+  <rect x="180" y="140" width="240" height="230" rx="14" fill="#FFFFFF" stroke="#142D26" stroke-width="2.5" filter="drop-shadow(0 12px 24px rgba(20,45,38,0.08))"/>
+  <!-- Card Header -->
+  <rect x="180" y="140" width="240" height="48" rx="14" fill="#142D26"/>
+  <rect x="180" y="174" width="240" height="14" fill="#142D26"/>
+  <text x="300" y="165" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="13" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">LOVELY PROFESSIONAL UNIVERSITY</text>
+  <text x="300" y="180" font-family="'Inter', sans-serif" font-weight="600" font-size="8" fill="#F07845" text-anchor="middle" letter-spacing="1.5">STUDENT IDENTITY CARD</text>
+  <!-- Card Content -->
+  <!-- Photo frame -->
+  <rect x="202" y="202" width="60" height="74" rx="4" fill="#F5F2E9" stroke="#A8B7A0" stroke-width="1.5"/>
+  <circle cx="232" cy="226" r="14" fill="#A8B7A0"/>
+  <path d="M 216 264 C 216 248, 248 248, 248 264 Z" fill="#A8B7A0"/>
+  <!-- Chip -->
+  <rect x="274" y="204" width="28" height="22" rx="3" fill="#E6CA65" stroke="#B89726" stroke-width="1"/>
+  <!-- Text Lines / Masked representation -->
+  <text x="274" y="244" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="12" fill="#252925">SAM*** K****</text>
+  <text x="274" y="260" font-family="'Inter', sans-serif" font-weight="600" font-size="9" fill="#142D26">REG: 1211****</text>
+  <text x="274" y="272" font-family="'Inter', sans-serif" font-size="8" fill="#666666">B.Tech ECE (2023-27)</text>
+  <!-- Barcode -->
+  <rect x="202" y="295" width="196" height="26" fill="#F5F2E9" rx="3"/>
+  <g fill="#252925">
+    <rect x="210" y="300" width="3" height="16"/>
+    <rect x="215" y="300" width="1.5" height="16"/>
+    <rect x="218" y="300" width="4" height="16"/>
+    <rect x="224" y="300" width="2" height="16"/>
+    <rect x="228" y="300" width="1" height="16"/>
+    <rect x="231" y="300" width="3.5" height="16"/>
+    <rect x="238" y="300" width="2" height="16"/>
+    <rect x="243" y="300" width="5" height="16"/>
+    <rect x="251" y="300" width="1.5" height="16"/>
+    <rect x="256" y="300" width="3" height="16"/>
+    <rect x="262" y="300" width="2" height="16"/>
+    <rect x="267" y="300" width="4" height="16"/>
+    <rect x="274" y="300" width="1" height="16"/>
+    <rect x="278" y="300" width="3" height="16"/>
+    <rect x="284" y="300" width="2" height="16"/>
+    <rect x="290" y="300" width="4" height="16"/>
+    <rect x="297" y="300" width="1.5" height="16"/>
+    <rect x="302" y="300" width="3.5" height="16"/>
+    <rect x="309" y="300" width="2" height="16"/>
+    <rect x="314" y="300" width="4" height="16"/>
+    <rect x="321" y="300" width="1" height="16"/>
+    <rect x="325" y="300" width="3" height="16"/>
+    <rect x="331" y="300" width="2" height="16"/>
+    <rect x="336" y="300" width="4" height="16"/>
+    <rect x="343" y="300" width="1.5" height="16"/>
+    <rect x="347" y="300" width="3.5" height="16"/>
+    <rect x="353" y="300" width="2" height="16"/>
+    <rect x="358" y="300" width="5" height="16"/>
+    <rect x="366" y="300" width="2" height="16"/>
+    <rect x="371" y="300" width="3" height="16"/>
+    <rect x="376" y="300" width="4" height="16"/>
+    <rect x="383" y="300" width="2" height="16"/>
+  </g>
+  <!-- Security stamp -->
+  <circle cx="370" cy="245" r="16" fill="none" stroke="#F07845" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="370" y="248" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="7" fill="#F07845" text-anchor="middle">LPU RFID</text>
+  <!-- Confidential badge banner -->
+  <rect x="180" y="336" width="240" height="26" rx="0" fill="#142D26"/>
+  <text x="300" y="352" font-family="'Inter', sans-serif" font-weight="600" font-size="9" fill="#A8B7A0" text-anchor="middle" letter-spacing="1">SECURE CAMPUS RECOVERY RECORD</text>
+</svg>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Lost Belonging – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link active">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/dashboard.html" class="nav-link">Dashboard</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container" style="max-width: 760px;">
+      
+      <div style="background-color: var(--color-white); border: 2px solid var(--color-forest); padding: 40px; border-radius: var(--radius-xs); box-shadow: var(--shadow-md);">
+        
+        <div style="margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1px solid rgba(20,45,38,0.12);">
+          <div class="meta-tag">STAGE 01 • ACTIVE SEARCH REGISTRATION</div>
+          <h1 style="font-size: 2.2rem; color: var(--color-forest); margin-top: 6px;">Report a Lost Belonging</h1>
+          <p style="font-size: 0.95rem; color: var(--color-charcoal-muted); margin-top: 6px;">
+            Submit your missing item details into the LPU campus network. Once reported, our smart matching engine automatically cross-checks against registered found items.
+          </p>
+        </div>
+
+        <form id="lost-form" enctype="multipart/form-data">
+          <!-- Item Title -->
+          <div class="form-group">
+            <label class="form-label" for="lost-title">Item Name / Summary *</label>
+            <input type="text" id="lost-title" name="title" class="form-control" placeholder="e.g. Apple 67W USB-C White Charger with Braided Cable" required>
+            <div class="form-hint">Provide a clear, recognizable description with color and brand.</div>
+          </div>
+
+          <!-- Category & Location -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+              <label class="form-label" for="lost-category">Category *</label>
+              <select id="lost-category" name="category" class="form-select" required>
+                <option value="">Select Category...</option>
+                <option value="ID Card">ID Card (Student/Staff RFID)</option>
+                <option value="Electronics">Electronics (Chargers, Earbuds, Smartwatches)</option>
+                <option value="Laptop">Laptop / Tablet</option>
+                <option value="Mobile Phone">Mobile Phone</option>
+                <option value="Water Bottle">Water Bottle / Flask</option>
+                <option value="Wallet">Wallet / Purse</option>
+                <option value="Documents">Documents / Marksheet / Certificates</option>
+                <option value="Keys">Keys (Hostel / Vehicle)</option>
+                <option value="Books">Books / Notebooks / Notes</option>
+                <option value="Bags">Bags / Backpack / Pouch</option>
+                <option value="Accessories">Accessories (Glasses, Umbrella, Watch)</option>
+                <option value="Other">Other Belonging</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="lost-location">Approximate Campus Zone *</label>
+              <select id="lost-location" name="location" class="form-select" required>
+                <option value="">Select Campus Zone...</option>
+                <option value="Academic Blocks">Academic Blocks (Blocks 25-38, 55-58)</option>
+                <option value="Library">Central Library (3 Floors)</option>
+                <option value="Hostels">Hostels (BH-1 to BH-8, GH-1 to GH-6)</option>
+                <option value="Mess">Dining Mess / Hostel Food Counters</option>
+                <option value="Food Courts">Food Courts (FC-1, FC-2, FC-3)</option>
+                <option value="Sports Complex">Sports Complex & Indoor Stadium</option>
+                <option value="Unipolis">Baldev Raj Mittal Unipolis</option>
+                <option value="Shopping Complex">Shopping Complex / Uni-Mall</option>
+                <option value="University Bus Area">University Bus Stand & Parking</option>
+                <option value="Main Gate">Campus Main Entrance Perimeter</option>
+                <option value="Other">Other Campus Area</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Specific Spot & Date -->
+          <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px;">
+            <div class="form-group">
+              <label class="form-label" for="lost-spot">Specific Spot / Classroom / Desk</label>
+              <input type="text" id="lost-spot" name="specific_spot" class="form-control" placeholder="e.g. Block 34, 4th Floor Lab 402 row 3">
+              <div class="form-hint">Room number, table, or corridor where you recall having it last.</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="lost-date">Date Misplaced *</label>
+              <input type="date" id="lost-date" name="date_occurred" class="form-control" required>
+            </div>
+          </div>
+
+          <!-- Detailed Description -->
+          <div class="form-group">
+            <label class="form-label" for="lost-desc">Detailed Description *</label>
+            <textarea id="lost-desc" name="description" rows="3" class="form-control" placeholder="Mention size, physical condition, visible markings, scratches, or stickers..." required></textarea>
+          </div>
+
+          <!-- Secret Identifiers (Private Proof) -->
+          <div class="form-group">
+            <label class="form-label" for="lost-secret">
+              Hidden Proof / Identifying Details (Private to You & Staff)
+            </label>
+            <textarea id="lost-secret" name="secret_identifiers" rows="2" class="form-control" placeholder="e.g. Serial number prefix, lockscreen wallpaper description, private sticker on bottom, specific card inside..."></textarea>
+            <div class="form-hint">This detail is kept confidential and used by staff to verify your ownership when an item is found.</div>
+          </div>
+
+          <!-- Photograph Upload -->
+          <div class="form-group">
+            <label class="form-label" for="lost-photo">Photograph of Item (Optional)</label>
+            <input type="file" id="lost-photo" name="photo" class="form-control" accept="image/jpeg,image/png,image/webp,image/svg+xml">
+            <div class="form-hint">If you have a past photograph or invoice of the item, attach it here.</div>
+          </div>
+
+          <!-- Contact Preference -->
+          <div class="form-group">
+            <label class="form-label" for="lost-contact">Preferred Contact Method</label>
+            <select id="lost-contact" name="contact_preference" class="form-select">
+              <option value="platform">Platform Notification (Recommended - Keeps phone private)</option>
+              <option value="email">University Email Alert</option>
+              <option value="phone">Phone / WhatsApp Call (Staff Only)</option>
+            </select>
+          </div>
+
+          <div id="lost-error" style="display: none;" class="alert alert-error"></div>
+
+          <!-- Submission Feedback Modal Container -->
+          <div id="lost-match-banner" style="display: none; margin-top: 15px;" class="alert alert-success"></div>
+
+          <button type="submit" id="lost-submit-btn" class="btn btn-orange btn-lg" style="width: 100%; margin-top: 10px;">
+            FILE OFFICIAL LOST REPORT →
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Must be logged in to report
+      const user = await guardRoute();
+      if (!user) return;
+
+      // Set max date to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('lost-date').max = today;
+      document.getElementById('lost-date').value = today;
+    });
+
+    document.getElementById('lost-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errBox = document.getElementById('lost-error');
+      errBox.style.display = 'none';
+
+      const btn = document.getElementById('lost-submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Saving Report & Running Smart Matcher...';
+
+      const formData = new FormData(e.target);
+      formData.append('type', 'lost');
+
+      const res = await API.post('/api/items', formData, true);
+
+      if (res.success && res.item) {
+        showToast(`Report filed! Reference ID: ${res.item.reference_no}`, 'success');
+
+        if (res.matchesCount > 0) {
+          const matchBanner = document.getElementById('lost-match-banner');
+          matchBanner.innerHTML = `
+            <div>
+              <strong>🎯 Smart Match Detected!</strong> We discovered ${res.matchesCount} potential found item(s) on campus matching your report.
+              <div style="margin-top: 8px;">
+                <a href="/item-detail.html?id=${res.item.id}" class="btn btn-forest btn-sm">Inspect Potential Matches Now →</a>
+              </div>
+            </div>
+          `;
+          matchBanner.style.display = 'flex';
+          btn.textContent = 'REPORT LOGGED WITH MATCHES';
+        } else {
+          setTimeout(() => {
+            window.location.href = `/item-detail.html?id=${res.item.id}`;
+          }, 1000);
+        }
+      } else {
+        errBox.textContent = res.error || 'Failed to submit report.';
+        errBox.style.display = 'flex';
+        btn.disabled = false;
+        btn.textContent = 'FILE OFFICIAL LOST REPORT →';
+      }
+    });
+  </script>
+</body>
+</html>

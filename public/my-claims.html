@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Ownership Claims – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/dashboard.html" class="nav-link">Dashboard</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container">
+      
+      <div style="margin-bottom: 24px;">
+        <div class="meta-tag">STAGE 03 • OWNERSHIP VERIFICATION STATUS</div>
+        <h1 style="color: var(--color-forest); font-size: 2.2rem; margin-top: 4px;">My Ownership Claims</h1>
+        <p style="color: var(--color-charcoal-muted); font-size: 0.95rem;">
+          Track operational verification, staff assessment, and designated handover collection instructions.
+        </p>
+      </div>
+
+      <div id="claims-container">
+        <div class="empty-state">
+          <div class="empty-icon">⏳</div>
+          <div class="empty-title">Loading your claims...</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = await guardRoute();
+      if (!user) return;
+
+      const res = await API.get('/api/claims/my-claims');
+      const container = document.getElementById('claims-container');
+
+      if (res.success && res.claims && res.claims.length > 0) {
+        container.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            ${res.claims.map(c => `
+              <div style="background-color: var(--color-white); border: 2px solid ${c.status === 'approved' ? 'var(--color-orange)' : 'var(--color-forest)'}; border-radius: var(--radius-xs); padding: 24px; box-shadow: var(--shadow-sm);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(20,45,38,0.1);">
+                  <div>
+                    <span class="meta-tag" style="color: var(--color-forest); font-size: 0.85rem;">CLAIM REFERENCE: ${c.reference_no}</span>
+                    <h2 style="font-size: 1.4rem; color: var(--color-forest); margin-top: 4px;">${c.item_title}</h2>
+                    <div style="font-size: 0.85rem; color: var(--color-charcoal-muted);">Item Ref: ${c.item_ref} • Found at: ${c.item_location}</div>
+                  </div>
+                  <div>
+                    ${getStatusBadge(c.status)}
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px;">
+                  <div>
+                    <div class="meta-tag" style="margin-bottom: 4px;">YOUR SUBMITTED JUSTIFICATION</div>
+                    <p style="font-size: 0.9rem; color: var(--color-charcoal); line-height: 1.5; margin-bottom: 12px;">${c.proof_description}</p>
+                    
+                    <div class="meta-tag" style="margin-bottom: 4px;">SECRET PROOF ANSWERS</div>
+                    <p style="font-size: 0.85rem; color: var(--color-charcoal-muted); font-style: italic;">"${c.secret_answers}"</p>
+                  </div>
+
+                  <div style="background-color: var(--color-ivory); border: 1px solid rgba(20,45,38,0.1); padding: 18px; border-radius: var(--radius-xs);">
+                    <div class="meta-tag" style="margin-bottom: 6px;">CAMPUS SECURITY & REVIEW STATUS</div>
+                    
+                    ${c.status === 'pending' || c.status === 'under_review' ? `
+                      <p style="font-size: 0.9rem; color: var(--color-charcoal-muted);">
+                        Your claim is queued for human review. Authorized campus safety staff will inspect the item and compare your secret answers with the physical item.
+                      </p>
+                    ` : ''}
+
+                    ${c.status === 'approved' ? `
+                      <div class="alert alert-success" style="margin-bottom: 12px;">
+                        <div>
+                          <strong>🎉 CLAIM APPROVED & VERIFIED!</strong><br>
+                          Your proof matches the item records. Please collect your belonging from the designated desk.
+                        </div>
+                      </div>
+                      <div style="font-size: 0.9rem; line-height: 1.5;">
+                        <strong>Collection Hub:</strong> ${c.collection_point_name || 'Central Campus Security'}<br>
+                        <strong>Building:</strong> ${c.collection_point_building || 'Block 13 Level 1'}<br>
+                        <strong>Hours:</strong> ${c.collection_point_hours || '08:00 AM - 09:00 PM'}<br>
+                        <strong>Incharge Contact:</strong> ${c.collection_point_contact || '+91 1824-517000'}<br>
+                        <div style="margin-top: 10px; font-size: 0.8rem; color: #166534; font-weight: 600;">
+                          ⚠️ Mandatory: Carry your original physical LPU Student ID Card for collection verification.
+                        </div>
+                      </div>
+                    ` : ''}
+
+                    ${c.status === 'rejected' ? `
+                      <div class="alert alert-error" style="margin-bottom: 8px;">
+                        <div>
+                          <strong>Verification Unsuccessful:</strong> ${c.staff_notes || 'The identifying details provided did not correspond with the found item.'}
+                        </div>
+                      </div>
+                      <p style="font-size: 0.85rem; color: var(--color-charcoal-muted);">
+                        If you believe this was an error, please visit the Campus Security HQ at Main Gate 1 in person.
+                      </p>
+                    ` : ''}
+
+                    ${c.status === 'handed_over' ? `
+                      <div class="alert alert-success">
+                        <div>
+                          <strong>✓ HANDOVER COMPLETE:</strong> Belonging was handed over and student physical identity was verified. Case closed.
+                        </div>
+                      </div>
+                      ${c.handover_notes ? `<div style="font-size: 0.85rem; color: var(--color-charcoal-muted); margin-top: 6px;"><em>Log: ${c.handover_notes}</em></div>` : ''}
+                    ` : ''}
+                  </div>
+                </div>
+
+                <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(20,45,38,0.08); display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.8rem; color: var(--color-sage-dark);">Claim Date: ${formatDate(c.created_at)}</span>
+                  <a href="/item-detail.html?id=${c.item_id}" class="btn btn-outline btn-sm">Inspect Item Page →</a>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">📂</div>
+            <div class="empty-title">No ownership claims submitted</div>
+            <div class="empty-desc">You have not submitted any claims yet. Explore found items currently in campus custody to find what you lost.</div>
+            <a href="/browse.html?type=found" class="btn btn-orange">Browse Found Belongings</a>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

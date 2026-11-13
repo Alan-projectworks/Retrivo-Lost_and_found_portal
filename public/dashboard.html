@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Recovery Dashboard – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/dashboard.html" class="nav-link active">Dashboard</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container">
+        <!-- Rendered by auth.js -->
+      </div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="/" class="mobile-nav-link">Home</a></li>
+      <li><a href="/browse.html" class="mobile-nav-link">Browse Items</a></li>
+      <li><a href="/report-lost.html" class="mobile-nav-link">Report Lost Item</a></li>
+      <li><a href="/report-found.html" class="mobile-nav-link">Report Found Item</a></li>
+      <li><a href="/dashboard.html" class="mobile-nav-link">Student Dashboard</a></li>
+      <li><a href="/profile.html" class="mobile-nav-link">My Profile</a></li>
+    </ul>
+  </div>
+
+  <main class="main-content">
+    <!-- Dashboard Header Banner -->
+    <section class="dashboard-header">
+      <div class="container">
+        <div class="dashboard-user-card">
+          <div>
+            <div class="meta-tag" style="color: var(--color-orange); margin-bottom: 6px;">
+              [LPU STUDENT IDENTITY] • <span id="dash-reg-no">LOADING...</span>
+            </div>
+            <h1 style="color: var(--color-white); font-size: 2.2rem; margin-bottom: 6px;">
+              Welcome back, <span id="dash-user-name">Student</span>
+            </h1>
+            <p style="color: var(--color-sage); font-size: 0.95rem;" id="dash-user-dept">
+              School of Computer Science & Engineering • BH-4
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="/report-lost.html" class="btn btn-orange btn-sm">+ Report Lost Item</a>
+            <a href="/report-found.html" class="btn btn-outline btn-sm" style="color: white; border-color: rgba(255,255,255,0.4);">+ Report Found Item</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Row -->
+    <section class="container" style="margin-top: -20px; margin-bottom: 30px;">
+      <div class="stats-grid" style="background-color: var(--color-white); padding: 24px; border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); box-shadow: var(--shadow-sm);">
+        <div class="stat-box">
+          <div class="stat-number" id="user-stat-lost">0</div>
+          <div class="stat-label">My Lost Reports</div>
+          <div class="stat-sub">Active search cases</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-number" id="user-stat-found">0</div>
+          <div class="stat-label">My Found Reports</div>
+          <div class="stat-sub">Items you discovered</div>
+        </div>
+
+        <div class="stat-box highlight">
+          <div class="stat-number" id="user-stat-claims">0</div>
+          <div class="stat-label">Pending Claims</div>
+          <div class="stat-sub">Awaiting staff review</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-number" id="user-stat-recovered">0</div>
+          <div class="stat-label">Recovered Belongings</div>
+          <div class="stat-sub">Safely returned to you</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabbed Content Section -->
+    <section class="container" style="margin-bottom: 60px;">
+      <div class="dashboard-tabs">
+        <button class="dashboard-tab active" onclick="switchDashTab('lost')">My Lost Items (<span id="tab-cnt-lost">0</span>)</button>
+        <button class="dashboard-tab" onclick="switchDashTab('found')">My Found Reports (<span id="tab-cnt-found">0</span>)</button>
+        <button class="dashboard-tab" onclick="switchDashTab('claims')">My Active Claims (<span id="tab-cnt-claims">0</span>)</button>
+        <button class="dashboard-tab" onclick="switchDashTab('activity')">Recent Notifications & Updates</button>
+      </div>
+
+      <!-- Tab 1: My Lost Items -->
+      <div id="tab-pane-lost" class="tab-pane">
+        <div class="items-grid" id="dash-lost-grid">
+          <div style="grid-column: 1 / -1;" class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <div class="empty-title">No lost items reported yet</div>
+            <div class="empty-desc">If you misplaced an ID Card, water bottle, keys or books anywhere on campus, report it now to activate smart matching.</div>
+            <a href="/report-lost.html" class="btn btn-orange">+ Report Lost Item</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: My Found Reports -->
+      <div id="tab-pane-found" class="tab-pane" style="display: none;">
+        <div class="items-grid" id="dash-found-grid">
+          <div style="grid-column: 1 / -1;" class="empty-state">
+            <div class="empty-icon">🤝</div>
+            <div class="empty-title">No found items logged</div>
+            <div class="empty-desc">Discovered an unattended belonging at the library, mess, or classrooms? Report it so the legitimate owner can claim it.</div>
+            <a href="/report-found.html" class="btn btn-forest">+ Report Found Item</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: My Claims -->
+      <div id="tab-pane-claims" class="tab-pane" style="display: none;">
+        <div id="dash-claims-list">
+          <div class="empty-state">
+            <div class="empty-icon">🏷️</div>
+            <div class="empty-title">No ownership claims submitted</div>
+            <div class="empty-desc">When you spot an item in the Browse Directory that belongs to you, submit a verified ownership claim.</div>
+            <a href="/browse.html" class="btn btn-outline">Explore Campus Directory</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Recent Notifications / Activity -->
+      <div id="tab-pane-activity" class="tab-pane" style="display: none;">
+        <div id="dash-activity-list" style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs);">
+          <div style="padding: 30px; text-align: center; color: var(--color-charcoal-muted);">
+            Loading recent activity...
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container" style="text-align: center; font-size: 0.85rem; color: var(--color-sage);">
+      RETRIVO. – LPU Campus Recovery Network • P04 Design Thinking Project
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    let myReports = [];
+    let myClaims = [];
+
+    const switchDashTab = (tabName) => {
+      document.querySelectorAll('.dashboard-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+
+      event.target.classList.add('active');
+      const targetPane = document.getElementById(`tab-pane-${tabName}`);
+      if (targetPane) targetPane.style.display = 'block';
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = await guardRoute();
+      if (!user) return;
+
+      document.getElementById('dash-user-name').textContent = user.full_name;
+      document.getElementById('dash-reg-no').textContent = user.reg_number;
+      document.getElementById('dash-user-dept').textContent = `${user.department || 'LPU Student'} • ${user.hostel_block || 'Campus Resident'}`;
+
+      // Load user's reports
+      const reportsRes = await API.get('/api/items/my-reports');
+      if (reportsRes.success) {
+        myReports = reportsRes.items || [];
+        const lost = myReports.filter(i => i.type === 'lost');
+        const found = myReports.filter(i => i.type === 'found');
+
+        document.getElementById('user-stat-lost').textContent = lost.length;
+        document.getElementById('user-stat-found').textContent = found.length;
+        document.getElementById('tab-cnt-lost').textContent = lost.length;
+        document.getElementById('tab-cnt-found').textContent = found.length;
+
+        renderItemsGrid('dash-lost-grid', lost, 'lost');
+        renderItemsGrid('dash-found-grid', found, 'found');
+      }
+
+      // Load user's claims
+      const claimsRes = await API.get('/api/claims/my-claims');
+      if (claimsRes.success) {
+        myClaims = claimsRes.claims || [];
+        const pending = myClaims.filter(c => ['pending', 'under_review'].includes(c.status));
+        const recovered = myClaims.filter(c => ['approved', 'handed_over'].includes(c.status));
+
+        document.getElementById('user-stat-claims').textContent = pending.length;
+        document.getElementById('user-stat-recovered').textContent = recovered.length;
+        document.getElementById('tab-cnt-claims').textContent = myClaims.length;
+
+        renderClaimsList(myClaims);
+      }
+
+      // Load user's notifications / activity
+      const notifRes = await API.get('/api/notifications');
+      if (notifRes.success) {
+        renderActivityList(notifRes.notifications || []);
+      }
+    });
+
+    const renderItemsGrid = (elementId, items, type) => {
+      const container = document.getElementById(elementId);
+      if (!items || items.length === 0) return;
+
+      container.innerHTML = items.map(item => `
+        <div class="item-card">
+          <div class="card-media-wrapper">
+            <img src="${item.photo_url || '/uploads/default-item.svg'}" alt="${item.title}">
+            <div class="card-badges">
+              <span class="badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">${item.type.toUpperCase()}</span>
+              ${getStatusBadge(item.status)}
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta-line">
+              <span class="card-ref">${item.reference_no}</span>
+              <span class="card-date">${formatDate(item.date_occurred)}</span>
+            </div>
+            <h3 class="card-title">
+              <a href="/item-detail.html?id=${item.id}">${item.title}</a>
+            </h3>
+            <p class="card-desc">${item.description}</p>
+            <div class="card-footer">
+              <div class="card-location">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                ${item.location}
+              </div>
+              <a href="/item-detail.html?id=${item.id}" class="card-action-link">View Details →</a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    const renderClaimsList = (claims) => {
+      const container = document.getElementById('dash-claims-list');
+      if (!claims || claims.length === 0) return;
+
+      container.innerHTML = `
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Claim ID</th>
+                <th>Item Believed Owned</th>
+                <th>Date Claimed</th>
+                <th>Status</th>
+                <th>Staff Instructions</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${claims.map(c => `
+                <tr>
+                  <td><span class="meta-tag" style="color: var(--color-forest);">${c.reference_no}</span></td>
+                  <td>
+                    <strong>${c.item_title}</strong>
+                    <div style="font-size: 0.8rem; color: var(--color-charcoal-muted);">${c.item_ref} • ${c.item_location}</div>
+                  </td>
+                  <td>${formatDate(c.created_at)}</td>
+                  <td>${getStatusBadge(c.status)}</td>
+                  <td>
+                    <div style="font-size: 0.85rem; max-width: 320px;">
+                      ${c.staff_notes ? `<em>${c.staff_notes}</em>` : 'Under operational review.'}
+                      ${c.status === 'approved' && c.collection_point_name ? `
+                        <div style="margin-top: 4px; color: var(--color-orange); font-weight: 600;">
+                          📍 Collect from: ${c.collection_point_name} (${c.collection_point_building})
+                        </div>
+                      ` : ''}
+                    </div>
+                  </td>
+                  <td>
+                    <a href="/item-detail.html?id=${c.item_id}" class="btn btn-outline btn-sm">Inspect Item</a>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    };
+
+    const renderActivityList = (notifs) => {
+      const container = document.getElementById('dash-activity-list');
+      if (!notifs || notifs.length === 0) {
+        container.innerHTML = `<div style="padding: 30px; text-align: center; color: var(--color-charcoal-muted);">No activity recorded yet.</div>`;
+        return;
+      }
+
+      container.innerHTML = notifs.map(n => `
+        <div style="padding: 18px 24px; border-bottom: 1px solid rgba(20,45,38,0.08); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;">
+          <div>
+            <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-forest); font-size: 1rem; margin-bottom: 4px;">
+              ${n.title}
+            </div>
+            <p style="font-size: 0.9rem; color: var(--color-charcoal-muted); margin-bottom: 6px;">
+              ${n.message}
+            </p>
+            <div style="font-size: 0.75rem; color: var(--color-sage-dark);">
+              ${formatRelativeTime(n.created_at)}
+            </div>
+          </div>
+          ${n.link ? `<a href="${n.link}" class="btn btn-forest btn-sm">View →</a>` : ''}
+        </div>
+      `).join('');
+    };
+  </script>
+</body>
+</html>

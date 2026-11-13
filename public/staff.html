@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Custody & Handover Desk – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">CAMPUS SECURITY & STAFF DESK</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/staff.html" class="nav-link active">Operational Desk</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Inventory</a></li>
+            <li><a href="/report-found.html" class="nav-link">+ Log Found Item</a></li>
+            <li><a href="/dashboard.html" class="nav-link">Student Portal</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container">
+      
+      <!-- Desk Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        <div>
+          <div class="meta-tag" style="color: #0D47A1;">OPERATIONAL WORKFLOW • CAMPUS SAFETY & SECURITY</div>
+          <h1 style="color: var(--color-forest); font-size: 2.2rem; margin-top: 4px;">Staff Verification & Handover Desk</h1>
+          <p style="color: var(--color-charcoal-muted); font-size: 0.95rem;">
+            Assess student ownership proof, compare secret item identifiers, authorize collections, and log physical handovers.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button onclick="loadClaimsQueue()" class="btn btn-outline btn-sm">↻ Refresh Queue</button>
+          <a href="/report-found.html" class="btn btn-forest btn-sm">+ Deposit Found Belonging</a>
+        </div>
+      </div>
+
+      <!-- Operational Stats Grid -->
+      <div class="stats-grid" style="background-color: var(--color-white); padding: 24px; border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); margin-bottom: 30px;">
+        <div class="stat-box highlight">
+          <div class="stat-number" id="stf-pending-claims">0</div>
+          <div class="stat-label">Pending Claim Reviews</div>
+          <div class="stat-sub">Require staff evidence inspection</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-number" id="stf-ready-collection">0</div>
+          <div class="stat-label">Ready for Collection</div>
+          <div class="stat-sub">Approved, awaiting student visit</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-number" id="stf-active-found">0</div>
+          <div class="stat-label">Items in Campus Custody</div>
+          <div class="stat-sub">Deposited across 8 collection desks</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-number" id="stf-returned-items">0</div>
+          <div class="stat-label">Completed Handovers</div>
+          <div class="stat-sub">Signed & safely returned</div>
+        </div>
+      </div>
+
+      <!-- Desk Tabs -->
+      <div class="dashboard-tabs">
+        <button class="dashboard-tab active" onclick="switchStaffTab('claims')">Claims Verification Queue (<span id="cnt-claims-badge">0</span>)</button>
+        <button class="dashboard-tab" onclick="switchStaffTab('custody')">Campus Custody Inventory (<span id="cnt-custody-badge">0</span>)</button>
+      </div>
+
+      <!-- Tab 1: Claims Queue -->
+      <div id="stf-tab-claims" class="tab-pane">
+        <div style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); padding: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 10px;">
+              <select id="claims-status-filter" class="form-select" style="max-width: 180px;" onchange="loadClaimsQueue()">
+                <option value="All">All Claims</option>
+                <option value="pending" selected>Pending Review</option>
+                <option value="under_review">Under Review</option>
+                <option value="approved">Approved</option>
+                <option value="handed_over">Handover Complete</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--color-charcoal-muted);">
+              Click "Verify & Compare" to inspect claimant's secret answers against confidential item records.
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Claim ID</th>
+                  <th>Claimant Student</th>
+                  <th>Item Under Claim</th>
+                  <th>Current Desk Custody</th>
+                  <th>Date Filed</th>
+                  <th>Status</th>
+                  <th>Staff Action</th>
+                </tr>
+              </thead>
+              <tbody id="claims-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Custody Inventory -->
+      <div id="stf-tab-custody" class="tab-pane" style="display: none;">
+        <div style="background-color: var(--color-white); border: 1px solid rgba(20,45,38,0.15); border-radius: var(--radius-xs); padding: 20px;">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Item Ref</th>
+                  <th>Item Name</th>
+                  <th>Category</th>
+                  <th>Found Zone</th>
+                  <th>Holding Desk</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="custody-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Evidence Comparison & Review Modal -->
+  <div class="modal-overlay" id="review-modal">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Human Verification & Proof Comparison</h3>
+        <button type="button" class="modal-close-btn" onclick="closeReviewModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <div style="background-color: var(--color-ivory); padding: 14px; border-radius: var(--radius-xs); margin-bottom: 20px; border: 1px solid rgba(20,45,38,0.1);">
+          <div class="meta-tag" style="margin-bottom: 2px;">ITEM RECORD UNDER REVIEW</div>
+          <h3 id="modal-item-title" style="color: var(--color-forest); font-size: 1.25rem;">--</h3>
+          <div style="font-size: 0.8rem; color: var(--color-charcoal-muted);" id="modal-item-meta">REF: -- • Location: --</div>
+        </div>
+
+        <!-- Comparison Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+          <!-- Left: Claimant's Secret Answer -->
+          <div style="background-color: #FFF9F5; border: 1.5px solid var(--color-orange); padding: 14px; border-radius: var(--radius-xs);">
+            <div class="meta-tag" style="color: var(--color-orange); margin-bottom: 4px;">CLAIMANT'S SECRET ANSWER</div>
+            <p id="modal-claimant-answer" style="font-size: 0.9rem; color: var(--color-charcoal); line-height: 1.5;">--</p>
+            <div style="margin-top: 10px; font-size: 0.75rem; color: var(--color-charcoal-muted);" id="modal-claimant-info">
+              Claimant: -- (Reg: --)
+            </div>
+          </div>
+
+          <!-- Right: Actual Confidential Item Secrets -->
+          <div style="background-color: #F1F6F3; border: 1.5px solid var(--color-forest); padding: 14px; border-radius: var(--radius-xs);">
+            <div class="meta-tag" style="color: var(--color-forest); margin-bottom: 4px;">ACTUAL SECRET ITEM DETAILS</div>
+            <p id="modal-actual-secrets" style="font-size: 0.9rem; color: var(--color-forest); line-height: 1.5; font-weight: 600;">--</p>
+            <div style="margin-top: 10px; font-size: 0.75rem; color: var(--color-sage-dark);">
+              Confidential finder / intake record
+            </div>
+          </div>
+        </div>
+
+        <!-- Decision Form -->
+        <form id="claim-decision-form">
+          <input type="hidden" id="modal-claim-id">
+          
+          <div class="form-group">
+            <label class="form-label" for="decision-notes">Staff Review Notes / Instructions *</label>
+            <textarea id="decision-notes" rows="2" class="form-control" placeholder="Explain validation findings or collection desk instructions..." required></textarea>
+          </div>
+
+          <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button type="button" onclick="submitClaimDecision('rejected')" class="btn btn-outline" style="border-color: #DC2626; color: #DC2626;">
+              ✕ Reject Claim
+            </button>
+            <button type="button" onclick="submitClaimDecision('approved')" class="btn btn-forest">
+              ✓ Approve Claim & Notify Student
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Physical Handover Modal -->
+  <div class="modal-overlay" id="handover-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Record Physical Item Handover</h3>
+        <button type="button" class="modal-close-btn" onclick="closeHandoverModal()">&times;</button>
+      </div>
+      <form id="handover-form">
+        <div class="modal-body">
+          <div class="alert alert-info" style="font-size: 0.85rem; margin-bottom: 18px;">
+            <div>
+              <strong>Security Protocol:</strong> Inspect the student's physical LPU Student ID card. Confirm their photo and 8-digit registration number before handing over belongings.
+            </div>
+          </div>
+
+          <input type="hidden" id="ho-claim-id">
+
+          <div class="form-group">
+            <label class="form-label" for="ho-student-name">Claimant Student</label>
+            <input type="text" id="ho-student-name" class="form-control" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="ho-reg-no">Verified Student Registration No. *</label>
+            <input type="text" id="ho-reg-no" class="form-control" placeholder="e.g. 12104598" required>
+            <div class="form-hint">Must match physical student ID presented at the desk.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="ho-notes">Handover Register Entry / Notes *</label>
+            <textarea id="ho-notes" rows="2" class="form-control" placeholder="e.g. Student presented physical ID, verified item serial and received in good condition." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeHandoverModal()">Cancel</button>
+          <button type="submit" class="btn btn-orange">Confirm Handover & Close Case →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    let activeClaims = [];
+
+    const switchStaffTab = (tab) => {
+      document.querySelectorAll('.dashboard-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+      event.target.classList.add('active');
+      document.getElementById(`stf-tab-${tab}`).style.display = 'block';
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Must be staff or admin
+      const user = await guardRoute(['staff', 'admin']);
+      if (!user) return;
+
+      loadStaffOverview();
+      loadClaimsQueue();
+      loadCustodyItems();
+    });
+
+    const loadStaffOverview = async () => {
+      const res = await API.get('/api/staff/overview');
+      if (res.success) {
+        document.getElementById('stf-pending-claims').textContent = res.pendingClaims;
+        document.getElementById('stf-ready-collection').textContent = res.readyCollection;
+        document.getElementById('stf-active-found').textContent = res.activeFound;
+        document.getElementById('stf-returned-items').textContent = res.returnedItems;
+      }
+    };
+
+    const loadClaimsQueue = async () => {
+      const statusFilter = document.getElementById('claims-status-filter').value;
+      const res = await API.get(`/api/claims?status=${statusFilter}`);
+
+      if (res.success) {
+        activeClaims = res.claims || [];
+        document.getElementById('cnt-claims-badge').textContent = activeClaims.length;
+
+        const tbody = document.getElementById('claims-tbody');
+        if (activeClaims.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 40px; color: var(--color-charcoal-muted);">No claims in this filter.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = activeClaims.map(c => `
+          <tr>
+            <td><span class="meta-tag" style="color: var(--color-forest);">${c.reference_no}</span></td>
+            <td>
+              <strong>${c.claimant_name}</strong>
+              <div style="font-size: 0.8rem; color: var(--color-charcoal-muted);">${c.claimant_reg_number} • ${c.claimant_dept || 'Student'}</div>
+            </td>
+            <td>
+              <strong>${c.item_title}</strong>
+              <div style="font-size: 0.8rem; color: var(--color-charcoal-muted);">${c.item_ref} • ${c.item_category}</div>
+            </td>
+            <td>${c.collection_point_name || 'Campus Security HQ'}</td>
+            <td>${formatDate(c.created_at)}</td>
+            <td>${getStatusBadge(c.status)}</td>
+            <td>
+              <div style="display: flex; gap: 8px;">
+                ${['pending', 'under_review'].includes(c.status) ? `
+                  <button onclick="openReviewModal(${c.id})" class="btn btn-orange btn-sm">Verify & Compare</button>
+                ` : ''}
+
+                ${c.status === 'approved' ? `
+                  <button onclick="openHandoverModal(${c.id})" class="btn btn-forest btn-sm">Record Handover</button>
+                ` : ''}
+
+                ${['handed_over', 'rejected'].includes(c.status) ? `
+                  <span style="font-size: 0.8rem; color: var(--color-sage-dark);">Closed</span>
+                ` : ''}
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+    };
+
+    const loadCustodyItems = async () => {
+      const res = await API.get('/api/staff/items');
+      if (res.success && res.items) {
+        document.getElementById('cnt-custody-badge').textContent = res.items.length;
+        const tbody = document.getElementById('custody-tbody');
+        tbody.innerHTML = res.items.map(i => `
+          <tr>
+            <td><span class="meta-tag" style="color: var(--color-forest);">${i.reference_no}</span></td>
+            <td><strong>${i.title}</strong></td>
+            <td>${i.category}</td>
+            <td>${i.location}</td>
+            <td>${i.collection_point_name || 'Central Library Helpdesk'}</td>
+            <td>${getStatusBadge(i.status)}</td>
+            <td>
+              <a href="/item-detail.html?id=${i.id}" class="btn btn-outline btn-sm">Inspect</a>
+            </td>
+          </tr>
+        `).join('');
+      }
+    };
+
+    // Review Modal Logic
+    const openReviewModal = (claimId) => {
+      const claim = activeClaims.find(c => c.id === claimId);
+      if (!claim) return;
+
+      document.getElementById('modal-claim-id').value = claim.id;
+      document.getElementById('modal-item-title').textContent = claim.item_title;
+      document.getElementById('modal-item-meta').textContent = `REF: ${claim.item_ref} • Zone: ${claim.item_location}`;
+      document.getElementById('modal-claimant-answer').textContent = `"${claim.secret_answers}"`;
+      document.getElementById('modal-claimant-info').textContent = `Claimant: ${claim.claimant_name} (${claim.claimant_reg_number}) • Phone: ${claim.claimant_phone || 'N/A'}`;
+      document.getElementById('modal-actual-secrets').textContent = claim.item_secret_identifiers || 'No special secret noted by finder; verify general description & receipts.';
+      document.getElementById('decision-notes').value = '';
+
+      document.getElementById('review-modal').classList.add('active');
+    };
+
+    const closeReviewModal = () => document.getElementById('review-modal').classList.remove('active');
+
+    const submitClaimDecision = async (status) => {
+      const claimId = document.getElementById('modal-claim-id').value;
+      const notes = document.getElementById('decision-notes').value.trim();
+
+      if (!notes) {
+        showToast('Please enter review notes explaining the decision.', 'error');
+        return;
+      }
+
+      const res = await API.put(`/api/claims/${claimId}/review`, {
+        status,
+        staff_notes: notes
+      });
+
+      if (res.success) {
+        showToast(res.message, 'success');
+        closeReviewModal();
+        loadClaimsQueue();
+        loadStaffOverview();
+      } else {
+        showToast(res.error || 'Failed to review claim.', 'error');
+      }
+    };
+
+    // Handover Modal Logic
+    const openHandoverModal = (claimId) => {
+      const claim = activeClaims.find(c => c.id === claimId);
+      if (!claim) return;
+
+      document.getElementById('ho-claim-id').value = claim.id;
+      document.getElementById('ho-student-name').value = `${claim.claimant_name} (${claim.claimant_reg_number})`;
+      document.getElementById('ho-reg-no').value = claim.claimant_reg_number;
+      document.getElementById('ho-notes').value = `Physical identity verified. Item ${claim.item_title} handed over in good order.`;
+
+      document.getElementById('handover-modal').classList.add('active');
+    };
+
+    const closeHandoverModal = () => document.getElementById('handover-modal').classList.remove('active');
+
+    document.getElementById('handover-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const claimId = document.getElementById('ho-claim-id').value;
+      const verified_student_reg = document.getElementById('ho-reg-no').value.trim();
+      const handover_notes = document.getElementById('ho-notes').value.trim();
+
+      const res = await API.post(`/api/claims/${claimId}/handover`, {
+        verified_student_reg,
+        handover_notes
+      });
+
+      if (res.success) {
+        showToast('Physical handover recorded! Item status updated to Returned.', 'success');
+        closeHandoverModal();
+        loadClaimsQueue();
+        loadStaffOverview();
+        loadCustodyItems();
+      } else {
+        showToast(res.error || 'Failed to record handover.', 'error');
+      }
+    });
+  </script>
+</body>
+</html>

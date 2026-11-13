@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title description">
+  <title id="title">Sample LPU ID card</title>
+  <desc id="description">A simple illustrated ID card marked LPU ID CARD and SAMPLE.</desc>
+  <rect width="600" height="400" fill="#F5F2E9"/>
+  <path d="M265 0h70l-12 98h-46z" fill="#142D26"/>
+  <rect x="150" y="78" width="300" height="278" rx="18" fill="#fff" stroke="#142D26" stroke-width="4"/>
+  <path d="M150 96a18 18 0 0 1 18-18h264a18 18 0 0 1 18 18v48H150z" fill="#142D26"/>
+  <text x="300" y="121" fill="#fff" font-family="Arial, sans-serif" font-size="26" font-weight="700" text-anchor="middle" letter-spacing="2">LPU ID CARD</text>
+  <rect x="180" y="170" width="95" height="112" rx="8" fill="#E8EDE6"/>
+  <circle cx="227.5" cy="208" r="22" fill="#A8B7A0"/>
+  <path d="M192 270c3-29 68-29 71 0v5h-71z" fill="#A8B7A0"/>
+  <text x="320" y="194" fill="#252925" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="1">NAME</text>
+  <line x1="320" y1="207" x2="412" y2="207" stroke="#A8B7A0" stroke-width="2"/>
+  <text x="320" y="238" fill="#252925" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="1">ID NO.</text>
+  <line x1="320" y1="251" x2="412" y2="251" stroke="#A8B7A0" stroke-width="2"/>
+  <rect x="180" y="304" width="240" height="30" rx="15" fill="#F07845"/>
+  <text x="300" y="324" fill="#fff" font-family="Arial, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="2">SAMPLE</text>
+</svg>

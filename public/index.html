@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RETRIVO. – LPU Campus Recovery Network</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link active">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+            <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="nav-actions" id="nav-auth-container">
+        <!-- Injected via auth.js -->
+        <a href="/login.html" class="btn btn-ghost btn-sm" style="color: var(--color-ivory);">Sign In</a>
+        <a href="/register.html" class="btn btn-orange btn-sm">Register</a>
+      </div>
+
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <ul class="mobile-nav-links">
+      <li><a href="/" class="mobile-nav-link">Home</a></li>
+      <li><a href="/browse.html" class="mobile-nav-link">Browse Items</a></li>
+      <li><a href="/report-lost.html" class="mobile-nav-link">Report Lost Item</a></li>
+      <li><a href="/report-found.html" class="mobile-nav-link">Report Found Item</a></li>
+      <li><a href="/qr-campus.html" class="mobile-nav-link">Campus QR Access</a></li>
+      <li><a href="/dashboard.html" class="mobile-nav-link">My Dashboard</a></li>
+      <li><a href="/login.html" class="mobile-nav-link">Sign In</a></li>
+    </ul>
+  </div>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="hero-meta">
+              <span class="hero-meta-dot"></span>
+              <span class="hero-meta-text">600-Acre Campus Recovery Grid • Lovely Professional University</span>
+            </div>
+
+            <h1 class="hero-title">
+              LOST ON CAMPUS?<br>
+              LET'S <span>FIND IT.</span>
+            </h1>
+
+            <p class="hero-lead">
+              A centralized recovery network for the 600-acre LPU campus. Report missing belongings, discover found items and reconnect students with what matters.
+            </p>
+
+            <div class="hero-actions">
+              <a href="/report-lost.html" class="btn btn-orange btn-lg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                REPORT LOST ITEM
+              </a>
+              <a href="/report-found.html" class="btn btn-outline btn-lg" style="color: var(--color-white); border-color: rgba(255,255,255,0.4);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                I FOUND SOMETHING
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero Graphic Composition -->
+          <div>
+            <div class="hero-graphic-card">
+              <div class="hero-graphic-header">
+                <span class="graphic-ref">[LPU CAMPUS RECOVERY]</span>
+                <span class="graphic-badge">LOST &amp; FOUND</span>
+              </div>
+              <div class="hero-graphic-img-wrap" style="padding: 0; overflow: hidden;">
+                <img src="/uploads/default-item.svg" alt="Lost and found item search illustration" style="width: 100%; height: 230px; object-fit: cover;">
+              </div>
+              <div class="hero-graphic-info">
+                <div class="hero-graphic-title">Lost something? Find it here.</div>
+                <div class="hero-graphic-loc">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Search campus reports or share a lost or found item.
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                  <span class="badge badge-active">Campus-wide</span>
+                  <a href="/browse.html" class="btn btn-forest btn-sm">Browse Items →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Statistics Section (Database Calculated) -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-number" id="stat-total-reported">--</div>
+            <div class="stat-label">Total Items Reported</div>
+            <div class="stat-sub">Across 600-acre campus database</div>
+          </div>
+
+          <div class="stat-box highlight">
+            <div class="stat-number" id="stat-returned">--</div>
+            <div class="stat-label">Items Returned</div>
+            <div class="stat-sub">Handed over to verified owners</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-number" id="stat-waiting">--</div>
+            <div class="stat-label">Waiting to be Claimed</div>
+            <div class="stat-sub">Held securely in campus custody</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-number" id="stat-active">--</div>
+            <div class="stat-label">Active Reports</div>
+            <div class="stat-sub">Currently monitored by smart matcher</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recently Found Items Showcase -->
+    <section style="padding: 70px 0; background-color: var(--color-white); border-bottom: 1px solid rgba(20,45,38,0.12);">
+      <div class="container">
+        <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div class="section-pretitle">01 • LIVE CAMPUS INVENTORY</div>
+            <h2 class="section-title">Recently Discovered Belongings</h2>
+            <p class="section-desc">Belongings recently discovered and deposited at authorized campus collection desks. Did you lose any of these?</p>
+          </div>
+          <a href="/browse.html?type=found" class="btn btn-outline">View Complete Directory →</a>
+        </div>
+
+        <div class="items-grid" id="recent-found-grid">
+          <!-- Populated dynamically via fetch -->
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--color-charcoal-muted);">
+            Connecting to campus database...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works (4-Step Process) -->
+    <section class="process-section" id="how-it-works">
+      <div class="container">
+        <div class="section-header" style="text-align: center; max-width: 650px; margin-left: auto; margin-right: auto;">
+          <div class="section-pretitle">02 • RECOVERY ARCHITECTURE</div>
+          <h2 class="section-title">Four Steps to Recovery</h2>
+          <p class="section-desc">How Retrivo replaces scattered WhatsApp groups and chaotic search with a structured, verified return pipeline.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h3 class="step-card-title">Report an Item</h3>
+            <p class="step-card-desc">File a secure report for a lost or discovered item with category, campus zone, approximate time, and private identifiers.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h3 class="step-card-title">Search the Portal</h3>
+            <p class="step-card-desc">Our smart matching engine continuously checks newly reported items against current campus recovery records in real time.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h3 class="step-card-title">Verify Ownership</h3>
+            <p class="step-card-desc">Submit an ownership claim answering hidden verification questions. Campus staff conducts human review before any release.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">04</div>
+            <h3 class="step-card-title">Collect Belonging</h3>
+            <p class="step-card-desc">Visit the designated collection desk (Library, Uni-Mall, Block 34, Hostels). Staff logs physical ID and completes the return.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Campus Wayfinding Zones Overview -->
+    <section class="zones-section">
+      <div class="container">
+        <div class="section-header" style="text-align: center; max-width: 700px; margin: 0 auto 30px auto;">
+          <div class="section-pretitle" style="color: var(--color-orange);">03 • 600-ACRE COVERAGE</div>
+          <h2 class="section-title" style="color: var(--color-white);">Authorized Campus Collection Hubs</h2>
+          <p class="section-desc" style="color: var(--color-sage);">Physical desks operated by campus safety, wardens, and departmental coordinators where found items are logged and safely preserved.</p>
+        </div>
+
+        <div class="zones-grid" id="campus-zones-grid">
+          <div class="zone-card">
+            <div class="zone-code">LPU-ZONE-LIB</div>
+            <div class="zone-name">Central Library Ground Desk</div>
+            <div class="zone-building">Central Library 3rd Floor Helpdesk • 08:00 AM - 10:00 PM</div>
+          </div>
+          <div class="zone-card">
+            <div class="zone-code">LPU-ZONE-MALL</div>
+            <div class="zone-name">Uni-Mall Security Center</div>
+            <div class="zone-building">Block 13 Level 1 • 09:00 AM - 09:00 PM</div>
+          </div>
+          <div class="zone-card">
+            <div class="zone-code">LPU-ZONE-B34</div>
+            <div class="zone-name">Block 34 CSE Helpdesk</div>
+            <div class="zone-building">Block 34 1st Floor Reception • 08:30 AM - 05:30 PM</div>
+          </div>
+          <div class="zone-card">
+            <div class="zone-code">LPU-ZONE-UNIPOLIS</div>
+            <div class="zone-name">Unipolis Cultural Control Desk</div>
+            <div class="zone-building">Unipolis Gate 2 Security Booth • 07:00 AM - 11:00 PM</div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="/qr-campus.html" class="btn btn-orange">View Campus QR Posters & Wayfinding Kit →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-title">RETRIVO<span>.</span></div>
+          <p class="footer-tagline">
+            "Lost something? Let's bring it home."<br>
+            A smart recovery platform rethinking lost and found across Lovely Professional University's 600-acre campus.
+          </p>
+          <div style="font-family: var(--font-heading); font-size: 0.8rem; color: var(--color-orange); font-weight: 700;">
+            DESIGN THINKING PROJECT P04
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Portal Navigation</div>
+          <ul class="footer-links">
+            <li><a href="/" class="footer-link">Home Overview</a></li>
+            <li><a href="/browse.html" class="footer-link">Browse All Items</a></li>
+            <li><a href="/report-lost.html" class="footer-link">Report Lost Item</a></li>
+            <li><a href="/report-found.html" class="footer-link">Report Found Item</a></li>
+            <li><a href="/qr-campus.html" class="footer-link">Campus QR Wayfinding</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">User Services</div>
+          <ul class="footer-links">
+            <li><a href="/login.html" class="footer-link">Student Login</a></li>
+            <li><a href="/register.html" class="footer-link">New Student Registration</a></li>
+            <li><a href="/dashboard.html" class="footer-link">Student Recovery Dashboard</a></li>
+            <li><a href="/staff.html" class="footer-link">Staff Handover Desk</a></li>
+            <li><a href="/admin.html" class="footer-link">System Administration</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Campus Security & Help</div>
+          <p style="font-size: 0.85rem; color: var(--color-sage); margin-bottom: 12px; line-height: 1.5;">
+            In case of urgent loss of government documents, passports, or critical medication, reach campus security immediately:
+          </p>
+          <div style="font-family: var(--font-heading); font-weight: 700; color: var(--color-white); font-size: 0.95rem; margin-bottom: 4px;">
+            📞 +91 1824-517000 (Campus Security HQ)
+          </div>
+          <div style="font-size: 0.8rem; color: var(--color-sage);">
+            ✉️ security.helpdesk@lpu.in
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 RETRIVO – LPU Campus Recovery Network. All rights reserved.</div>
+        <div>Built for Lovely Professional University, Punjab, India.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    // Fetch and populate live database statistics and recent items
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res = await API.get('/api/stats/public');
+      if (res.success) {
+        document.getElementById('stat-total-reported').textContent = res.stats.totalReported;
+        document.getElementById('stat-returned').textContent = res.stats.returnedCount;
+        document.getElementById('stat-waiting').textContent = res.stats.waitingCount;
+        document.getElementById('stat-active').textContent = res.stats.activeCount;
+
+        // Populate recent found items
+        const grid = document.getElementById('recent-found-grid');
+        if (res.recentFound && res.recentFound.length > 0) {
+          grid.innerHTML = res.recentFound.map(item => `
+            <div class="item-card">
+              <div class="card-media-wrapper">
+                <img src="${item.photo_url || '/uploads/default-item.svg'}" alt="${item.title}">
+                <div class="card-badges">
+                  <span class="badge badge-found">FOUND</span>
+                  ${item.is_sensitive ? '<span class="badge badge-sensitive">PROTECTED</span>' : ''}
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-meta-line">
+                  <span class="card-ref">${item.reference_no}</span>
+                  <span class="card-date">${formatDate(item.date_occurred)}</span>
+                </div>
+                <h3 class="card-title">
+                  <a href="/item-detail.html?id=${item.id}">${item.title}</a>
+                </h3>
+                <p class="card-desc">${item.description}</p>
+                <div class="card-footer">
+                  <div class="card-location">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    ${item.location}
+                  </div>
+                  <a href="/item-detail.html?id=${item.id}" class="card-action-link">View Details →</a>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          grid.innerHTML = `<div style="grid-column: 1 / -1;" class="empty-state">
+            <div class="empty-title">No found items logged yet</div>
+            <div class="empty-desc">Check back later or report an item you found on campus.</div>
+          </div>`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

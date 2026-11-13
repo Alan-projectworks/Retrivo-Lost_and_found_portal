@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Found Belonging – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link active">Report Found</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container" style="max-width: 760px;">
+      
+      <div style="background-color: var(--color-white); border: 2px solid var(--color-forest); padding: 40px; border-radius: var(--radius-xs); box-shadow: var(--shadow-md);">
+        
+        <div style="margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(20,45,38,0.12);">
+          <div class="meta-tag" style="color: var(--color-forest);">GOOD SAMARITAN • RECOVERY DEPOSIT</div>
+          <h1 style="font-size: 2.2rem; color: var(--color-forest); margin-top: 6px;">Report a Discovered Belonging</h1>
+          <p style="font-size: 0.95rem; color: var(--color-charcoal-muted); margin-top: 6px;">
+            Thank you for helping reconnect a fellow student or staff member with their lost item. Please provide details while observing our campus privacy protection guidelines.
+          </p>
+        </div>
+
+        <!-- Privacy Guardrail Banner -->
+        <div class="alert alert-warning">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <div>
+            <strong style="font-family: var(--font-heading); text-transform: uppercase;">Campus Privacy Policy (Crucial):</strong><br>
+            If you found an <strong>ID Card, Wallet, or Official Document</strong>, do NOT post the student's full name, registration number, or internal card numbers in the public description. Retrivo will automatically safeguard sensitive items so only the verified owner can claim them.
+          </div>
+        </div>
+
+        <form id="found-form" enctype="multipart/form-data">
+          <!-- Item Title -->
+          <div class="form-group">
+            <label class="form-label" for="found-title">Safe Item Title / Name *</label>
+            <input type="text" id="found-title" name="title" class="form-control" placeholder="e.g. boAt Airdopes Wireless Earbuds in Charcoal Case" required>
+            <div class="form-hint">For ID cards or wallets, use generic titles like "LPU Student RFID Smart ID Card" or "Men's Leather Wallet".</div>
+          </div>
+
+          <!-- Category & Location -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+              <label class="form-label" for="found-category">Category *</label>
+              <select id="found-category" name="category" class="form-select" required onchange="handleCategoryChange(this.value)">
+                <option value="">Select Category...</option>
+                <option value="ID Card">ID Card (Student/Staff RFID)</option>
+                <option value="Electronics">Electronics (Chargers, Earbuds, Smartwatches)</option>
+                <option value="Laptop">Laptop / Tablet</option>
+                <option value="Mobile Phone">Mobile Phone</option>
+                <option value="Water Bottle">Water Bottle / Flask</option>
+                <option value="Wallet">Wallet / Purse</option>
+                <option value="Documents">Documents / Marksheet / Certificates</option>
+                <option value="Keys">Keys (Hostel / Vehicle)</option>
+                <option value="Books">Books / Notebooks / Notes</option>
+                <option value="Bags">Bags / Backpack / Pouch</option>
+                <option value="Accessories">Accessories (Glasses, Umbrella, Watch)</option>
+                <option value="Other">Other Belonging</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="found-location">Found Campus Zone *</label>
+              <select id="found-location" name="location" class="form-select" required>
+                <option value="">Select Campus Zone...</option>
+                <option value="Academic Blocks">Academic Blocks (Blocks 25-38, 55-58)</option>
+                <option value="Library">Central Library (3 Floors)</option>
+                <option value="Hostels">Hostels (BH-1 to BH-8, GH-1 to GH-6)</option>
+                <option value="Mess">Dining Mess / Hostel Food Counters</option>
+                <option value="Food Courts">Food Courts (FC-1, FC-2, FC-3)</option>
+                <option value="Sports Complex">Sports Complex & Indoor Stadium</option>
+                <option value="Unipolis">Baldev Raj Mittal Unipolis</option>
+                <option value="Shopping Complex">Shopping Complex / Uni-Mall</option>
+                <option value="University Bus Area">University Bus Stand & Parking</option>
+                <option value="Main Gate">Campus Main Entrance Perimeter</option>
+                <option value="Other">Other Campus Area</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Specific Spot & Date -->
+          <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px;">
+            <div class="form-group">
+              <label class="form-label" for="found-spot">Specific Spot Found *</label>
+              <input type="text" id="found-spot" name="specific_spot" class="form-control" placeholder="e.g. Uni-Mall Level 1 near SBI ATM" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="found-date">Date Found *</label>
+              <input type="date" id="found-date" name="date_occurred" class="form-control" required>
+            </div>
+          </div>
+
+          <!-- Safe Description -->
+          <div class="form-group">
+            <label class="form-label" for="found-desc">Safe Public Description *</label>
+            <textarea id="found-desc" name="description" rows="3" class="form-control" placeholder="Describe the physical appearance, color, brand, and condition without revealing confidential ownership proof..." required></textarea>
+            <div class="form-hint">Keep private details out of here so claimants can prove ownership later.</div>
+          </div>
+
+          <!-- Secret Identifiers (Kept Hidden for Claim Verification) -->
+          <div class="form-group" style="background-color: var(--color-ivory); padding: 18px; border: 1px dashed var(--color-forest); border-radius: var(--radius-xs);">
+            <label class="form-label" for="found-secret" style="color: var(--color-forest);">
+              🔒 Secret Identifying Detail (NEVER Displayed Publicly) *
+            </label>
+            <textarea id="found-secret" name="secret_identifiers" rows="2" class="form-control" placeholder="e.g. Student name on ID card, specific sticker on laptop, cards inside wallet, keychain engraving..." required></textarea>
+            <div class="form-hint" style="color: var(--color-forest);">
+              This information is stored securely in the database and only shown to Campus Security / Staff to verify ownership claims.
+            </div>
+          </div>
+
+          <!-- Custody & Handover Point -->
+          <div class="form-group">
+            <label class="form-label" for="found-cp">Current Item Custody / Handover Collection Desk *</label>
+            <select id="found-cp" name="collection_point_id" class="form-select" required>
+              <option value="">Select where item is deposited or being handed over...</option>
+              <!-- Populated via API -->
+            </select>
+            <div class="form-hint">
+              We strongly recommend handing over found items to the nearest official campus security desk or library helpdesk.
+            </div>
+          </div>
+
+          <!-- Photograph Upload -->
+          <div class="form-group">
+            <label class="form-label" for="found-photo">Photograph of Discovered Belonging</label>
+            <input type="file" id="found-photo" name="photo" class="form-control" accept="image/jpeg,image/png,image/webp,image/svg+xml">
+            <div class="form-hint">Photos help students identify their items quickly. For ID cards, ensure the registration number is obscured.</div>
+          </div>
+
+          <div id="found-error" style="display: none;" class="alert alert-error"></div>
+
+          <button type="submit" id="found-submit-btn" class="btn btn-forest btn-lg" style="width: 100%; margin-top: 10px;">
+            SUBMIT FOUND ITEM REPORT →
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const user = await guardRoute();
+      if (!user) return;
+
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('found-date').max = today;
+      document.getElementById('found-date').value = today;
+
+      // Load collection points into dropdown
+      const locRes = await API.get('/api/locations');
+      if (locRes.success && locRes.collectionPoints) {
+        const cpSelect = document.getElementById('found-cp');
+        locRes.collectionPoints.forEach(cp => {
+          const opt = document.createElement('option');
+          opt.value = cp.id;
+          opt.textContent = `${cp.name} (${cp.building} - Incharge: ${cp.desk_incharge})`;
+          cpSelect.appendChild(opt);
+        });
+      }
+    });
+
+    const handleCategoryChange = (val) => {
+      if (['ID Card', 'Wallet', 'Documents'].includes(val)) {
+        showToast('Privacy Mode: Sensitive categories automatically mask public contact details.', 'info');
+      }
+    };
+
+    document.getElementById('found-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errBox = document.getElementById('found-error');
+      errBox.style.display = 'none';
+
+      const btn = document.getElementById('found-submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Registering Found Item...';
+
+      const formData = new FormData(e.target);
+      formData.append('type', 'found');
+
+      const res = await API.post('/api/items', formData, true);
+
+      if (res.success && res.item) {
+        showToast(`Item registered! Reference ID: ${res.item.reference_no}`, 'success');
+        setTimeout(() => {
+          window.location.href = `/item-detail.html?id=${res.item.id}`;
+        }, 800);
+      } else {
+        errBox.textContent = res.error || 'Failed to submit found item report.';
+        errBox.style.display = 'flex';
+        btn.disabled = false;
+        btn.textContent = 'SUBMIT FOUND ITEM REPORT →';
+      }
+    });
+  </script>
+</body>
+</html>

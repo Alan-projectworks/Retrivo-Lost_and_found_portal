@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Campus Belongings – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link active">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container">
+      
+      <!-- Page Title & Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+        <div>
+          <div class="meta-tag">600-ACRE RECOVERY DIRECTORY</div>
+          <h1 style="color: var(--color-forest); font-size: 2.4rem; margin-top: 4px;">Browse Campus Belongings</h1>
+          <p style="color: var(--color-charcoal-muted); font-size: 0.95rem; margin-top: 4px;">
+            Search and filter items discovered or lost across hostels, academic blocks, libraries, and food courts.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <a href="/report-lost.html" class="btn btn-orange btn-sm">+ Report Lost</a>
+          <a href="/report-found.html" class="btn btn-forest btn-sm">+ Report Found</a>
+        </div>
+      </div>
+
+      <!-- Marketplace Filter Toolbar -->
+      <div class="browse-toolbar">
+        <div class="filter-row">
+          <!-- Type Toggle -->
+          <div>
+            <label class="form-label">Item Type</label>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn active" data-type="all" onclick="setTypeFilter('all')">All Items</button>
+              <button type="button" class="toggle-btn" data-type="found" onclick="setTypeFilter('found')">Found (Discovered)</button>
+              <button type="button" class="toggle-btn" data-type="lost" onclick="setTypeFilter('lost')">Lost (Missing)</button>
+            </div>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="search-input-wrap">
+            <label class="form-label" for="search-input">Keyword Search</label>
+            <div style="position: relative;">
+              <input type="text" id="search-input" class="form-control" placeholder="Search by name, reference ID, brand, location...">
+              <span style="position: absolute; right: 12px; top: 12px; color: var(--color-sage-dark);">🔍</span>
+            </div>
+          </div>
+
+          <!-- Campus Zone Dropdown -->
+          <div style="min-width: 180px;">
+            <label class="form-label" for="location-select">Campus Zone</label>
+            <select id="location-select" class="form-select" onchange="applyFilters()">
+              <option value="All">All Campus Zones</option>
+              <option value="Academic Blocks">Academic Blocks</option>
+              <option value="Library">Central Library</option>
+              <option value="Hostels">Hostels</option>
+              <option value="Mess">Mess / Dining</option>
+              <option value="Food Courts">Food Courts</option>
+              <option value="Sports Complex">Sports Complex</option>
+              <option value="Unipolis">Unipolis</option>
+              <option value="Shopping Complex">Uni-Mall / Shopping</option>
+              <option value="University Bus Area">University Bus Area</option>
+              <option value="Other">Other Areas</option>
+            </select>
+          </div>
+
+          <!-- Status Dropdown -->
+          <div style="min-width: 160px;">
+            <label class="form-label" for="status-select">Status</label>
+            <select id="status-select" class="form-select" onchange="applyFilters()">
+              <option value="All">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="under_review">Under Review</option>
+              <option value="ready_for_collection">Ready for Collection</option>
+              <option value="returned">Returned</option>
+            </select>
+          </div>
+
+          <!-- Sort -->
+          <div style="min-width: 140px;">
+            <label class="form-label" for="sort-select">Sort Order</label>
+            <select id="sort-select" class="form-select" onchange="applyFilters()">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Category Filter Chips -->
+        <div class="filter-chips-wrap" id="category-chips">
+          <span style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: var(--color-forest); display: flex; align-items: center; margin-right: 8px;">
+            CATEGORIES:
+          </span>
+          <button type="button" class="filter-chip active" data-cat="All" onclick="setCategoryFilter('All')">All Categories</button>
+          <button type="button" class="filter-chip" data-cat="ID Card" onclick="setCategoryFilter('ID Card')">ID Cards</button>
+          <button type="button" class="filter-chip" data-cat="Electronics" onclick="setCategoryFilter('Electronics')">Electronics</button>
+          <button type="button" class="filter-chip" data-cat="Water Bottle" onclick="setCategoryFilter('Water Bottle')">Water Bottles</button>
+          <button type="button" class="filter-chip" data-cat="Wallet" onclick="setCategoryFilter('Wallet')">Wallets</button>
+          <button type="button" class="filter-chip" data-cat="Documents" onclick="setCategoryFilter('Documents')">Documents</button>
+          <button type="button" class="filter-chip" data-cat="Keys" onclick="setCategoryFilter('Keys')">Keys</button>
+          <button type="button" class="filter-chip" data-cat="Bags" onclick="setCategoryFilter('Bags')">Bags / Backpacks</button>
+          <button type="button" class="filter-chip" data-cat="Other" onclick="setCategoryFilter('Other')">Calculators & Other</button>
+        </div>
+      </div>
+
+      <!-- Result Counter & Active Filter Summary -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--color-forest);">
+          Showing <span id="results-count" style="color: var(--color-orange);">0</span> items
+        </div>
+        <button type="button" onclick="resetFilters()" class="btn btn-ghost btn-sm" style="font-size: 0.8rem;">
+          Reset All Filters ✕
+        </button>
+      </div>
+
+      <!-- Items Grid -->
+      <div class="items-grid" id="browse-items-grid">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 60px; color: var(--color-charcoal-muted);">
+          Loading campus inventory...
+        </div>
+      </div>
+
+      <!-- Pagination / Load More -->
+      <div id="pagination-controls" style="display: flex; justify-content: center; gap: 12px; margin-top: 40px;">
+        <button id="prev-page-btn" class="btn btn-outline btn-sm" onclick="changePage(-1)" disabled>← Previous Page</button>
+        <span id="page-indicator" style="font-family: var(--font-heading); font-weight: 700; display: flex; align-items: center; padding: 0 10px; font-size: 0.9rem;">
+          Page 1 of 1
+        </span>
+        <button id="next-page-btn" class="btn btn-outline btn-sm" onclick="changePage(1)" disabled>Next Page →</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container" style="text-align: center; font-size: 0.85rem; color: var(--color-sage);">
+      RETRIVO. – LPU Campus Recovery Network • P04 Design Thinking Project
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    let filterState = {
+      type: 'all',
+      category: 'All',
+      location: 'All',
+      status: 'All',
+      search: '',
+      sort: 'newest',
+      page: 1,
+      limit: 12
+    };
+
+    let totalPages = 1;
+    let searchDebounceTimer = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Parse URL search params if any
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('type')) filterState.type = urlParams.get('type');
+      if (urlParams.has('category')) filterState.category = urlParams.get('category');
+      if (urlParams.has('location')) filterState.location = urlParams.get('location');
+      if (urlParams.has('search')) filterState.search = urlParams.get('search');
+
+      syncUIWithFilters();
+      fetchBrowseItems();
+
+      // Setup Search Input Debounce
+      document.getElementById('search-input').addEventListener('input', (e) => {
+        clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(() => {
+          filterState.search = e.target.value.trim();
+          filterState.page = 1;
+          fetchBrowseItems();
+        }, 300);
+      });
+    });
+
+    const syncUIWithFilters = () => {
+      // Type toggle
+      document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.type === filterState.type);
+      });
+
+      // Category chips
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.cat === filterState.category);
+      });
+
+      // Location select
+      document.getElementById('location-select').value = filterState.location;
+
+      // Search input
+      document.getElementById('search-input').value = filterState.search;
+    };
+
+    const setTypeFilter = (type) => {
+      filterState.type = type;
+      filterState.page = 1;
+      document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.type === type);
+      });
+      fetchBrowseItems();
+    };
+
+    const setCategoryFilter = (cat) => {
+      filterState.category = cat;
+      filterState.page = 1;
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.cat === cat);
+      });
+      fetchBrowseItems();
+    };
+
+    const applyFilters = () => {
+      filterState.location = document.getElementById('location-select').value;
+      filterState.status = document.getElementById('status-select').value;
+      filterState.sort = document.getElementById('sort-select').value;
+      filterState.page = 1;
+      fetchBrowseItems();
+    };
+
+    const resetFilters = () => {
+      filterState = {
+        type: 'all',
+        category: 'All',
+        location: 'All',
+        status: 'All',
+        search: '',
+        sort: 'newest',
+        page: 1,
+        limit: 12
+      };
+      syncUIWithFilters();
+      fetchBrowseItems();
+    };
+
+    const changePage = (delta) => {
+      filterState.page += delta;
+      fetchBrowseItems();
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    };
+
+    const fetchBrowseItems = async () => {
+      const grid = document.getElementById('browse-items-grid');
+      grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--color-charcoal-muted);">Searching campus database...</div>`;
+
+      const params = new URLSearchParams({
+        type: filterState.type === 'all' ? '' : filterState.type,
+        category: filterState.category === 'All' ? '' : filterState.category,
+        location: filterState.location === 'All' ? '' : filterState.location,
+        status: filterState.status === 'All' ? '' : filterState.status,
+        search: filterState.search,
+        sort: filterState.sort,
+        page: filterState.page,
+        limit: filterState.limit
+      });
+
+      const res = await API.get(`/api/items?${params.toString()}`);
+
+      if (res.success) {
+        document.getElementById('results-count').textContent = res.total;
+        totalPages = res.totalPages || 1;
+
+        // Update pagination
+        document.getElementById('page-indicator').textContent = `Page ${res.page} of ${totalPages || 1}`;
+        document.getElementById('prev-page-btn').disabled = res.page <= 1;
+        document.getElementById('next-page-btn').disabled = res.page >= totalPages;
+
+        if (res.items && res.items.length > 0) {
+          grid.innerHTML = res.items.map(item => `
+            <div class="item-card">
+              <div class="card-media-wrapper">
+                <img src="${item.photo_url || '/uploads/default-item.svg'}" alt="${item.title}">
+                <div class="card-badges">
+                  <span class="badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">${item.type.toUpperCase()}</span>
+                  ${getStatusBadge(item.status)}
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-meta-line">
+                  <span class="card-ref">${item.reference_no}</span>
+                  <span class="card-date">${formatDate(item.date_occurred)}</span>
+                </div>
+                <h3 class="card-title">
+                  <a href="/item-detail.html?id=${item.id}">${item.title}</a>
+                </h3>
+                <p class="card-desc">${item.description}</p>
+                <div class="card-footer">
+                  <div class="card-location">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    ${item.location}
+                  </div>
+                  <a href="/item-detail.html?id=${item.id}" class="card-action-link">View Details →</a>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1;" class="empty-state">
+              <div class="empty-icon">🔍</div>
+              <div class="empty-title">No matching campus records found</div>
+              <div class="empty-desc">Try clearing your filters or search keywords. You can also report an item if it's missing from our records.</div>
+              <div style="display: flex; gap: 12px; justify-content: center;">
+                <button onclick="resetFilters()" class="btn btn-outline btn-sm">Reset Filters</button>
+                <a href="/report-lost.html" class="btn btn-orange btn-sm">Report as Lost Item</a>
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        grid.innerHTML = `<div style="grid-column: 1 / -1;" class="alert alert-error">Error loading items from database.</div>`;
+      }
+    };
+  </script>
+</body>
+</html>

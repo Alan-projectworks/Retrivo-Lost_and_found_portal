@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="44" height="44" fill="none">
+  <!-- Rounded Shield Base in Deep Forest Green -->
+  <rect width="44" height="44" rx="6" fill="#142D26" stroke="#252925" stroke-width="1.5"/>
+  <!-- Campus Coordinate Crosshair lines -->
+  <circle cx="19" cy="18" r="13" stroke="#A8B7A0" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="3,2"/>
+  <!-- Magnifying Glass / Search Loop (Representing Lost & Search) in Signal Orange -->
+  <circle cx="18" cy="17" r="9.5" stroke="#F07845" stroke-width="2.75"/>
+  <line x1="25" y1="24" x2="33" y2="32" stroke="#F07845" stroke-width="3" stroke-linecap="round"/>
+  <!-- Map Pin / Target Beacon (Representing Found Item) with Center Core -->
+  <circle cx="18" cy="17" r="4" fill="#FFFFFF"/>
+  <circle cx="18" cy="17" r="2" fill="#142D26"/>
+  <!-- Return Homecoming Curved Loop (Representing Bringing It Home) -->
+  <path d="M 33 11 C 36 15, 35 20, 31 23" stroke="#F5F2E9" stroke-width="2" stroke-linecap="round"/>
+  <polyline points="29,10 33,10 34,14" stroke="#F5F2E9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

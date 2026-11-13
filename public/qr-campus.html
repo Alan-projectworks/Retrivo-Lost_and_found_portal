@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus QR Posters & Wayfinding – RETRIVO.</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar (hidden on print) -->
+  <header class="navbar no-print">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">CAMPUS RECOVERY WAYFINDING</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/qr-campus.html" class="nav-link active">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions" id="nav-auth-container"></div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 40px 0 80px 0;">
+    <div class="container">
+      
+      <!-- Top Introduction (hidden on print) -->
+      <div class="no-print" style="margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid rgba(20,45,38,0.12);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <div class="meta-tag">PHYSICAL CAMPUS INTEGRATION • 600 ACRES</div>
+            <h1 style="color: var(--color-forest); font-size: 2.3rem; margin-top: 4px;">Campus QR Recovery Posters</h1>
+            <p style="color: var(--color-charcoal-muted); font-size: 0.95rem; max-width: 680px; margin-top: 4px;">
+              Print and deploy official Retrivo Swiss-style posters at hostel lobbies, library turnstiles, food courts, and security gates. Students scanning these codes instantly access mobile recovery reporting with pre-filled zone coordinates.
+            </p>
+          </div>
+
+          <button onclick="window.print()" class="btn btn-orange">
+            🖨️ Print Campus Posters
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Scan Hero QR for Mobile Browsers -->
+      <div class="no-print" style="background-color: var(--color-forest); color: var(--color-white); padding: 32px; border-radius: var(--radius-xs); margin-bottom: 40px; display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: center;">
+        <div>
+          <div class="meta-tag" style="color: var(--color-orange); margin-bottom: 6px;">QUICK MOBILE ACCESS</div>
+          <h2 style="color: var(--color-white); font-size: 1.8rem; margin-bottom: 10px;">Access Retrivo from Your Phone</h2>
+          <p style="color: var(--color-sage); font-size: 0.95rem; line-height: 1.6; margin-bottom: 18px;">
+            Moving around campus? Point your phone camera at this QR code to access the mobile-optimized web application directly. No app installation needed.
+          </p>
+          <div style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--color-ivory);">
+            URL: <span id="portal-live-url">http://localhost:3000/</span>
+          </div>
+        </div>
+
+        <div style="background-color: var(--color-white); padding: 12px; border-radius: var(--radius-xs); text-align: center;">
+          <div id="general-portal-qr" style="width: 176px; height: 176px;"></div>
+        </div>
+      </div>
+
+      <!-- Campus Posters Grid -->
+      <div style="margin-bottom: 24px;" class="no-print">
+        <h2 style="font-size: 1.5rem; color: var(--color-forest); margin-bottom: 6px;">Zone-Specific Printable Kits</h2>
+        <p style="font-size: 0.9rem; color: var(--color-charcoal-muted);">Each poster features a high-contrast QR code tailored to route students to items discovered within that specific campus zone.</p>
+      </div>
+
+      <div id="posters-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--color-charcoal-muted);">
+          Generating vector QR posters...
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer (hidden on print) -->
+  <footer class="site-footer no-print">
+    <div class="container" style="text-align: center; font-size: 0.85rem; color: var(--color-sage);">
+      RETRIVO. – LPU Campus Recovery Network • P04 Design Thinking Project
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      document.getElementById('portal-live-url').textContent = window.location.origin + '/';
+
+      // Load general QR
+      const genQr = await fetch(`/api/qr/generate?text=${encodeURIComponent(window.location.origin + '/')}`);
+      const svgText = await genQr.text();
+      document.getElementById('general-portal-qr').innerHTML = svgText;
+
+      // Load curated campus posters
+      const postersRes = await API.get('/api/qr/campus-posters');
+      if (postersRes.success && postersRes.posters) {
+        const grid = document.getElementById('posters-grid');
+        grid.innerHTML = postersRes.posters.map(p => `
+          <div class="poster-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--color-forest); padding-bottom: 10px; margin-bottom: 14px;">
+              <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; color: var(--color-forest);">RETRIVO<span>.</span></span>
+              <span class="meta-tag" style="color: var(--color-orange);">${p.code}</span>
+            </div>
+
+            <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--color-forest); margin-bottom: 4px;">
+              ${p.name}
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--color-charcoal-muted); margin-bottom: 10px;">
+              ${p.description}
+            </p>
+
+            <div class="poster-qr-wrap">
+              ${p.qrSvg}
+            </div>
+
+            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--color-forest); margin-top: 10px;">
+              SCAN TO REPORT OR RECOVER
+            </div>
+            <div style="font-size: 0.75rem; color: var(--color-charcoal-muted); margin-top: 4px;">
+              Official LPU Campus Lost & Found Recovery Network
+            </div>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>

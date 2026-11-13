@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <rect width="600" height="400" fill="#F5F2E9"/>
+  <!-- Shadow -->
+  <ellipse cx="300" cy="365" rx="80" ry="14" fill="#252925" opacity="0.12"/>
+  <!-- Calculator Body -->
+  <rect x="220" y="50" width="160" height="300" rx="18" fill="#252925" stroke="#142D26" stroke-width="2"/>
+  <!-- Screen Area -->
+  <rect x="238" y="70" width="124" height="64" rx="6" fill="#A8B7A0" stroke="#142D26" stroke-width="1.5"/>
+  <rect x="244" y="76" width="112" height="52" fill="#BBC7B4"/>
+  <!-- LCD Solar Cell -->
+  <rect x="306" y="80" width="44" height="14" rx="2" fill="#5A3A28" stroke="#142D26" stroke-width="0.5"/>
+  <text x="250" y="116" font-family="'Courier New', monospace" font-weight="700" font-size="14" fill="#142D26">sin(π/4)=0.707</text>
+  <!-- Brand & Model -->
+  <text x="238" y="152" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="10" fill="#FFFFFF">CASIO</text>
+  <text x="362" y="152" font-family="'Inter', sans-serif" font-weight="600" font-size="8" fill="#F07845" text-anchor="end">fx-991EX</text>
+  <!-- Function Keys -->
+  <g fill="#3D443D" stroke="#142D26" stroke-width="0.5">
+    <rect x="238" y="162" width="22" height="14" rx="3"/>
+    <rect x="264" y="162" width="22" height="14" rx="3"/>
+    <rect x="290" y="162" width="20" height="14" rx="3"/>
+    <rect x="314" y="162" width="22" height="14" rx="3"/>
+    <rect x="340" y="162" width="22" height="14" rx="3"/>
+
+    <rect x="238" y="182" width="22" height="14" rx="3"/>
+    <rect x="264" y="182" width="22" height="14" rx="3"/>
+    <rect x="290" y="182" width="20" height="14" rx="3"/>
+    <rect x="314" y="182" width="22" height="14" rx="3"/>
+    <rect x="340" y="182" width="22" height="14" rx="3"/>
+
+    <rect x="238" y="202" width="22" height="14" rx="3"/>
+    <rect x="264" y="202" width="22" height="14" rx="3"/>
+    <rect x="290" y="202" width="20" height="14" rx="3"/>
+    <rect x="314" y="202" width="22" height="14" rx="3"/>
+    <rect x="340" y="202" width="22" height="14" rx="3"/>
+  </g>
+  <!-- Numeric Keypad -->
+  <g fill="#F5F2E9" stroke="#142D26" stroke-width="0.5">
+    <rect x="238" y="230" width="26" height="18" rx="4"/>
+    <rect x="270" y="230" width="26" height="18" rx="4"/>
+    <rect x="302" y="230" width="26" height="18" rx="4"/>
+    <rect x="334" y="230" width="28" height="18" rx="4" fill="#F07845"/>
+
+    <rect x="238" y="254" width="26" height="18" rx="4"/>
+    <rect x="270" y="254" width="26" height="18" rx="4"/>
+    <rect x="302" y="254" width="26" height="18" rx="4"/>
+    <rect x="334" y="254" width="28" height="18" rx="4" fill="#F07845"/>
+
+    <rect x="238" y="278" width="26" height="18" rx="4"/>
+    <rect x="270" y="278" width="26" height="18" rx="4"/>
+    <rect x="302" y="278" width="26" height="18" rx="4"/>
+    <rect x="334" y="278" width="28" height="18" rx="4" fill="#142D26"/>
+
+    <rect x="238" y="302" width="26" height="18" rx="4"/>
+    <rect x="270" y="302" width="26" height="18" rx="4"/>
+    <rect x="302" y="302" width="26" height="18" rx="4"/>
+    <rect x="334" y="302" width="28" height="18" rx="4" fill="#142D26"/>
+  </g>
+  <text x="348" y="242" font-family="'Inter', sans-serif" font-weight="700" font-size="8" fill="#FFFFFF" text-anchor="middle">DEL</text>
+  <text x="348" y="266" font-family="'Inter', sans-serif" font-weight="700" font-size="8" fill="#FFFFFF" text-anchor="middle">AC</text>
+  <text x="348" y="314" font-family="'Inter', sans-serif" font-weight="700" font-size="10" fill="#FFFFFF" text-anchor="middle">=</text>
+</svg>

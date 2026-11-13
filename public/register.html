@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration – RETRIVO. LPU Recovery Network</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions">
+        <a href="/login.html" class="btn btn-ghost btn-sm" style="color: var(--color-ivory);">Already registered? Sign In</a>
+      </div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 50px 0 80px 0;">
+    <div class="container" style="max-width: 620px;">
+      
+      <div style="background-color: var(--color-white); border: 2px solid var(--color-forest); padding: 36px; border-radius: var(--radius-xs); box-shadow: var(--shadow-md);">
+        
+        <div style="margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(20,45,38,0.12);">
+          <div class="meta-tag">STUDENT RECOVERY ACCESS</div>
+          <h1 style="font-size: 2rem; color: var(--color-forest); margin-top: 6px;">Register Student Account</h1>
+          <p style="font-size: 0.9rem; color: var(--color-charcoal-muted); margin-top: 4px;">
+            Join the centralized campus recovery network to report missing items, track submitted claims, and verify belonging handovers.
+          </p>
+        </div>
+
+        <form id="register-form">
+          <div class="form-group">
+            <label class="form-label" for="reg-name">Full Name *</label>
+            <input type="text" id="reg-name" class="form-control" placeholder="e.g. Aarav Sharma" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="reg-email">University Email *</label>
+              <input type="email" id="reg-email" class="form-control" placeholder="name@lpu.in" required>
+              <div class="form-hint">Official university or valid email address</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-number">Registration Number *</label>
+              <input type="text" id="reg-number" class="form-control" placeholder="e.g. 12104598" required>
+              <div class="form-hint">LPU 8-digit Student Registration No.</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="reg-department">School / Department</label>
+              <input type="text" id="reg-department" class="form-control" placeholder="e.g. B.Tech Computer Science">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-hostel">Hostel Block / Day Scholar</label>
+              <input type="text" id="reg-hostel" class="form-control" placeholder="e.g. BH-4 or Day Scholar">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-phone">Phone / WhatsApp Number</label>
+            <input type="tel" id="reg-phone" class="form-control" placeholder="+91 98765 43210">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="reg-password">Create Password *</label>
+              <input type="password" id="reg-password" class="form-control" placeholder="Minimum 6 characters" minlength="6" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-confirm-password">Confirm Password *</label>
+              <input type="password" id="reg-confirm-password" class="form-control" placeholder="Repeat password" minlength="6" required>
+            </div>
+          </div>
+
+          <div class="alert alert-info" style="font-size: 0.85rem; margin-top: 10px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <div>
+              <strong>Privacy Protection:</strong> Your contact number and registration number will never be exposed publicly on item listings.
+            </div>
+          </div>
+
+          <div id="register-error" style="display: none;" class="alert alert-error"></div>
+
+          <button type="submit" id="register-btn" class="btn btn-orange btn-lg" style="width: 100%; margin-top: 10px;">
+            CREATE STUDENT ACCOUNT
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(20,45,38,0.1); font-size: 0.9rem;">
+          Already have an account? <a href="/login.html" style="color: var(--color-orange); font-weight: 700;">Sign in to your portal</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errBox = document.getElementById('register-error');
+      errBox.style.display = 'none';
+
+      const full_name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const reg_number = document.getElementById('reg-number').value.trim();
+      const department = document.getElementById('reg-department').value.trim();
+      const hostel_block = document.getElementById('reg-hostel').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const confirm_password = document.getElementById('reg-confirm-password').value;
+
+      if (password !== confirm_password) {
+        errBox.textContent = 'Passwords do not match.';
+        errBox.style.display = 'flex';
+        return;
+      }
+
+      const btn = document.getElementById('register-btn');
+      btn.disabled = true;
+      btn.textContent = 'Creating Account...';
+
+      const res = await API.post('/api/auth/register', {
+        full_name,
+        email,
+        reg_number,
+        department,
+        hostel_block,
+        phone,
+        password,
+        confirm_password
+      });
+
+      if (res.success) {
+        showToast('Account created successfully! Redirecting...', 'success');
+        setTimeout(() => {
+          window.location.href = '/dashboard.html';
+        }, 800);
+      } else {
+        errBox.textContent = res.error || 'Registration failed.';
+        errBox.style.display = 'flex';
+        btn.disabled = false;
+        btn.textContent = 'CREATE STUDENT ACCOUNT';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+/* RETRIVO Design Tokens – Swiss Editorial & Campus Wayfinding */
+
+:root {
+  /* Brand Palette */
+  --color-forest: #142D26;
+  --color-forest-dark: #0D1F1A;
+  --color-forest-light: #1D3F35;
+  --color-ivory: #F5F2E9;
+  --color-ivory-dark: #EAE5D8;
+  --color-sage: #A8B7A0;
+  --color-sage-light: #CBD5C6;
+  --color-sage-dark: #829479;
+  --color-orange: #F07845;
+  --color-orange-hover: #E06734;
+  --color-orange-subtle: #FDF1EB;
+  --color-charcoal: #252925;
+  --color-charcoal-muted: #575D56;
+  --color-white: #FFFFFF;
+  
+  /* Borders & Surfaces */
+  --border-subtle: 1px solid rgba(20, 45, 38, 0.12);
+  --border-strong: 1px solid var(--color-charcoal);
+  --border-forest: 1px solid var(--color-forest);
+  --border-orange: 1px solid var(--color-orange);
+  
+  --shadow-sm: 0 2px 4px rgba(20, 45, 38, 0.04);
+  --shadow-md: 0 6px 16px rgba(20, 45, 38, 0.07);
+  --shadow-lg: 0 16px 32px rgba(20, 45, 38, 0.1);
+  --shadow-hard: 4px 4px 0px var(--color-forest);
+
+  /* Typography */
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* Layout & Spacing */
+  --container-max: 1240px;
+  --header-height: 72px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+  
+  /* Status Colors */
+  --status-active-bg: #EBF3E8;
+  --status-active-fg: #1F5224;
+  --status-review-bg: #FFF4E5;
+  --status-review-fg: #9C5400;
+  --status-ready-bg: #E3F2FD;
+  --status-ready-fg: #0D47A1;
+  --status-returned-bg: #E8F5E9;
+  --status-returned-fg: #142D26;
+  --status-cancelled-bg: #F5EAEB;
+  --status-cancelled-fg: #8A1F26;
+}

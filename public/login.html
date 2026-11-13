@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Sign In – RETRIVO. LPU Recovery Network</title>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body style="background-color: var(--color-ivory);">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="nav-left-group">
+        <a href="/" class="brand-logo">
+          <div class="brand-symbol">
+            <img src="/img/retrivo-logo.svg" alt="Retrivo Lost & Found Logo" width="40" height="40">
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">RETRIVO<span>.</span></div>
+            <div class="brand-sub">LPU CAMPUS RECOVERY</div>
+          </div>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/browse.html" class="nav-link">Browse Items</a></li>
+            <li><a href="/report-lost.html" class="nav-link">Report Lost</a></li>
+            <li><a href="/report-found.html" class="nav-link">Report Found</a></li>
+            <li><a href="/qr-campus.html" class="nav-link">Campus QR</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="nav-actions">
+        <a href="/register.html" class="btn btn-orange btn-sm">Create Student Account</a>
+      </div>
+      <button class="mobile-toggle-btn" id="mobile-toggle-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding: 50px 0 80px 0;">
+    <div class="container" style="max-width: 500px;">
+      
+      <div style="background-color: var(--color-white); border: 2px solid var(--color-forest); padding: 36px; border-radius: var(--radius-xs); box-shadow: var(--shadow-md);">
+        
+        <div style="margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(20,45,38,0.12);">
+          <div class="meta-tag">CAMPUS RECOVERY ACCESS</div>
+          <h1 style="font-size: 2rem; color: var(--color-forest); margin-top: 6px;">Sign In to Portal</h1>
+          <p style="font-size: 0.9rem; color: var(--color-charcoal-muted); margin-top: 4px;">
+            Access your student recovery dashboard, manage reports, and verify claim handovers.
+          </p>
+        </div>
+
+        <!-- Demonstration Quick Switcher -->
+        <div style="background-color: var(--color-ivory); border: 1px dashed var(--color-forest); padding: 14px; border-radius: var(--radius-xs); margin-bottom: 22px;">
+          <div style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: var(--color-forest); text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+            <span>Evaluation Quick Fill Accounts</span>
+            <span style="font-size: 0.7rem; color: var(--color-orange);">Local Demo</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <button type="button" onclick="fillDemo('student@lpu.in', 'Student@123')" class="btn btn-outline btn-sm" style="font-size: 0.75rem; padding: 6px 4px;">
+              🎓 Student
+            </button>
+            <button type="button" onclick="fillDemo('staff.security@lpu.in', 'Staff@123')" class="btn btn-outline btn-sm" style="font-size: 0.75rem; padding: 6px 4px;">
+              🛡️ Staff Desk
+            </button>
+            <button type="button" onclick="fillDemo('admin.recovery@lpu.in', 'Admin@123')" class="btn btn-outline btn-sm" style="font-size: 0.75rem; padding: 6px 4px;">
+              ⚙️ Admin
+            </button>
+          </div>
+        </div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="login-identifier">University Email or Registration No.</label>
+            <input type="text" id="login-identifier" class="form-control" placeholder="student@lpu.in or 12104598" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+          </div>
+
+          <div id="login-error" style="display: none;" class="alert alert-error"></div>
+
+          <button type="submit" id="login-btn" class="btn btn-forest btn-lg" style="width: 100%; margin-top: 10px;">
+            SIGN IN TO RETRIVO →
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(20,45,38,0.1); font-size: 0.9rem;">
+          Don't have an account yet? <a href="/register.html" style="color: var(--color-orange); font-weight: 700;">Register as Student</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    const fillDemo = (email, pw) => {
+      document.getElementById('login-identifier').value = email;
+      document.getElementById('login-password').value = pw;
+      showToast(`Filled credentials for ${email}`, 'info');
+    };
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errBox = document.getElementById('login-error');
+      errBox.style.display = 'none';
+
+      const identifier = document.getElementById('login-identifier').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      const btn = document.getElementById('login-btn');
+      btn.disabled = true;
+      btn.textContent = 'Verifying Credentials...';
+
+      const res = await API.post('/api/auth/login', { identifier, password });
+
+      if (res.success && res.user) {
+        showToast(`Welcome back, ${res.user.full_name}!`, 'success');
+        
+        // Redirect according to user role
+        setTimeout(() => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const redirect = urlParams.get('redirect');
+
+          if (redirect) {
+            window.location.href = redirect;
+          } else if (res.user.role === 'admin') {
+            window.location.href = '/admin.html';
+          } else if (res.user.role === 'staff') {
+            window.location.href = '/staff.html';
+          } else {
+            window.location.href = '/dashboard.html';
+          }
+        }, 500);
+      } else {
+        errBox.textContent = res.error || 'Invalid credentials.';
+        errBox.style.display = 'flex';
+        btn.disabled = false;
+        btn.textContent = 'SIGN IN TO RETRIVO →';
+      }
+    });
+  </script>
+</body>
+</html>
